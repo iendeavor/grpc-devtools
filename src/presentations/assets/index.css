@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:not(input[type="checkbox"]) {
+  outline: none;
+}
+
+html {
+  font-family: Roboto, system-ui, sans-serif;
+}
+
+.react-json-view {
+  background-color: transparent !important;
+}
+
+.react-json-view .variable-row {
+  width: max-content;
+}
+
+.react-json-view .node-ellipsis {
+  font-size: 10px !important;
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.react-json-view .object-container {
+  position: relative;
+}
+
+.react-json-view
+  > .pretty-json-container
+  > .object-content
+  > .object-key-val
+  > span
+  > span
+  > .icon-container {
+  visibility: hidden !important;
+}
+
+.react-json-view
+  > .pretty-json-container
+  > .object-content
+  > .object-key-val
+  > span
+  > .object-meta-data
+  > .copy-to-clipboard-container {
+  display: inline-block !important;
+}
+
+.react-json-view .copy-to-clipboard-container {
+  position: absolute;
+  left: 0;
+}
+
+.react-json-view .copy-to-clipboard-container > span > span {
+  display: flex;
+  flex-direction: row;
+  height: 18px;
+  align-items: center;
+}
+
+.react-json-view .copy-to-clipboard-container > span > span > span:last-child {
+  padding-left: 10px;
+}

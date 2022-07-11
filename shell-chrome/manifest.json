@@ -1,0 +1,25 @@
+{
+  "name": "gRPC devtools",
+  "version": "0.0.31",
+  "description": "Browser DevTools extension for debugging gRPC network requests.",
+  "manifest_version": 2,
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "devtools_page": "devtools.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-inline'; object-src 'self';",
+  "permissions": ["activeTab", "storage"]
+}
