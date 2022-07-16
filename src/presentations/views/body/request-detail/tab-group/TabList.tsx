@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Tab } from "@headlessui/react";
 import { tabs } from "../TabGroup";
-import IconClose from "./tab-list/IconClose";
-import { resolve, Tokens } from "@/service-locator";
+import { RequestRow } from "@/entities/request-row";
 
-const TabList = () => {
-  const detailInMemoryDataSource = resolve(Tokens.DetailInMemoryDataSource);
-
-  const handleClear = () => {
-    detailInMemoryDataSource.patch({
-      requestId: null,
-    });
-  };
+const TabList = ({ requestRow }: { requestRow: RequestRow }) => {
+  const availableTabs = useMemo<typeof tabs[number][]>(() => {
+    if (requestRow.type === "unary") {
+      return ["headers", "preview", "request", "response"];
+    } else {
+      return ["headers", "preview"];
+    }
+  }, [requestRow]);
 
   return (
     <div className="flex items-center">
-      <IconClose onClear={handleClear}></IconClose>
       <Tab.List>
         {({ selectedIndex }) => (
           <>
-            {tabs.map((tab, index) => {
+            {availableTabs.map((tab, index) => {
               return (
                 <Tab
                   key={tab}

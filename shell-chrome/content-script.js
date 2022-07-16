@@ -87,7 +87,65 @@ function createInterceptors() {
     };
   }
 
+  class gRPCDevtoolsStreamInterceptorWrapper {
+    constructor({ id, type, stream, request }) {
+      this.id = id;
+      this.type = type;
+      this.request = request;
+      this.stream = stream;
+    }
+
+    on = (eventType, callback) => {
+      console.log("on");
+
+      if (eventType === "data") {
+        console.log("data");
+        const newCallback = (response) => {
+          postMessage({
+            id: this.id,
+            type: this.type,
+            request: this.request,
+            response,
+          });
+          callback(response);
+        };
+        this.stream.on(eventType, newCallback);
+      } else {
+        // TODO
+        this.stream.on(eventType, callback);
+      }
+    };
+
+    cancel = () => {
+      // TODO
+      this.stream.cancel();
+      return this;
+    };
+  }
+
+  class gRPCDevtoolsStreamInterceptor {
+    intercept = (request, invoker) => {
+      const type = "stream";
+      const id = Math.random().toString();
+      const stream = invoker(request);
+
+      postMessage({
+        id,
+        type,
+        request,
+      });
+
+      return new gRPCDevtoolsStreamInterceptorWrapper({
+        id,
+        type,
+        request,
+        stream,
+      });
+    };
+  }
+
   return {
     gRPCDevtoolsUnaryInterceptor: new gRPCDevtoolsUnaryInterceptor(),
+    gRPCDevtoolsStreamInterceptor: new gRPCDevtoolsStreamInterceptor(),
   };
 }

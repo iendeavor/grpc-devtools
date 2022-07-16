@@ -56,8 +56,18 @@ if (
     });
   }
 } else {
+  window.addEventListener("beforeunload", () => {
+    if (configRepo.get().shouldPreserveLog) {
+      console.log("if");
+      requestRowsRepo.hydrate();
+    } else {
+      console.log("else");
+      requestRowsRepo.deleteAll();
+    }
+  });
+
   const offset = requestRowsRepo.getAll().length;
-  const requestRows: RequestRow[] = Array(10)
+  const unaryRequestRows: (RequestRow & { type: "unary" })[] = Array(10)
     .fill(null)
     .map((_, index) => {
       index += offset;
@@ -83,5 +93,24 @@ if (
       };
     });
 
-  postOrPutMultipleRequestRows({ requestRows });
+  const streamRequestRows: (RequestRow & { type: "stream" })[] = [
+    {
+      type: "stream",
+      id: "stream",
+      methodName: `/Service/subscribeNewUser`,
+      requestMessage: {},
+      responseMessages: [
+        {
+          id: "1",
+        },
+        {
+          id: "2",
+        },
+      ],
+    },
+  ];
+
+  postOrPutMultipleRequestRows({
+    requestRows: [...unaryRequestRows, ...streamRequestRows],
+  });
 }
