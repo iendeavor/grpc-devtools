@@ -6,9 +6,10 @@ const useDetail = () => {
   const detailInMemoryDataSource = resolve(Tokens.DetailInMemoryDataSource);
   const [detail, setDetail] = useState<Detail>(detailInMemoryDataSource.get());
   useEffect(() => {
-    return detailInMemoryDataSource.subscribe((detail) => {
+    const subscription = detailInMemoryDataSource.subscribe((detail) => {
       setDetail(detail);
-    }).unsubscribe;
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   const setDetail2 = (detail: Detail) => {

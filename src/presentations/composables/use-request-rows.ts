@@ -8,9 +8,10 @@ const useRequestRows = () => {
     requestRowsRepo.getAll()
   );
   useEffect(() => {
-    return requestRowsRepo.subscribe((requestRows) => {
+    const subscription = requestRowsRepo.subscribe((requestRows) => {
       setRequestRows(requestRows);
-    }).unsubscribe;
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   const setRequestRows2 = (requestRows: RequestRow[]) => {
