@@ -7,6 +7,10 @@ import useRequestRows from "@/presentations/composables/use-request-rows";
 
 const Main = ({ headerHeight }: { headerHeight: number }) => {
   const [detail, setDetail] = useDetail();
+  const [requestRows] = useRequestRows();
+  useEffect(() => {
+    setFirstRequestRowAsDetailIfMissing(requestRows);
+  }, [requestRows]);
   const setFirstRequestRowAsDetailIfMissing = (requestRows: RequestRow[]) => {
     if (requestRows.length === 0) return;
     if (detail.requestId !== null) return;
@@ -15,12 +19,8 @@ const Main = ({ headerHeight }: { headerHeight: number }) => {
       requestId: requestRows[0]!.id,
     });
   };
-  const isDetailVisible = useMemo(() => detail.requestId !== null, [detail]);
 
-  const [requestRows] = useRequestRows();
-  useEffect(() => {
-    setFirstRequestRowAsDetailIfMissing(requestRows);
-  }, [requestRows]);
+  const isDetailVisible = useMemo(() => detail.requestId !== null, [detail]);
 
   return (
     <main className="flex flex-col bg-background-elevation-1 overflow-y-auto">
