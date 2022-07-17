@@ -21,7 +21,7 @@ export class ConfigRepo {
     if (this.isHydrated) return;
     this.isHydrated = true;
     const persistedConfig = this.configLocalDataSource.get();
-    this.configInMemoryDataSource.patch(persistedConfig);
+    this.configInMemoryDataSource.patch(persistedConfig ?? {});
   };
 
   persist = (): void => {
