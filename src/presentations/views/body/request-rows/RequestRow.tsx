@@ -1,5 +1,5 @@
 import { RequestRow } from "@/entities/request-row";
-import { resolve, Tokens } from "@/service-locator";
+import useDetail from "@/presentations/composables/use-detail";
 import React from "react";
 
 const RequestRow = ({
@@ -11,14 +11,15 @@ const RequestRow = ({
   onClick?: React.InputHTMLAttributes<HTMLDivElement>["onClick"];
   requestRow: RequestRow;
 }) => {
-  const detailInMemoryDataSource = resolve(Tokens.DetailInMemoryDataSource);
+  const [detail, setDetail] = useDetail();
   const handleClick: React.DOMAttributes<HTMLDivElement>["onClick"] = (e) => {
-    if (requestRow.id !== detailInMemoryDataSource.get().requestId) {
-      detailInMemoryDataSource.patch({
-        requestId: requestRow.id,
-      });
-    }
     onClick?.(e);
+
+    if (requestRow.id === detail.requestId) return;
+    setDetail({
+      ...detail,
+      requestId: requestRow.id,
+    });
   };
 
   return (

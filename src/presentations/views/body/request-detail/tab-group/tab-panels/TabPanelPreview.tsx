@@ -3,10 +3,10 @@ import { Tab } from "@headlessui/react";
 import { resolve, Tokens } from "@/service-locator";
 import { RequestRow } from "@/entities/request-row";
 import ReactJsonView from "react-json-view";
+import useDetail from "@/presentations/composables/use-detail";
 
 const TabPanelResponse = () => {
   const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
-  const detailInMemoryDataSource = resolve(Tokens.DetailInMemoryDataSource);
 
   const [requestRows, setRequestRows] = useState<RequestRow[]>(
     requestRowsRepo.getAll()
@@ -17,16 +17,10 @@ const TabPanelResponse = () => {
     }).unsubscribe;
   }, []);
 
-  const [id, setId] = useState<null | string>(null);
-  useEffect(() => {
-    return detailInMemoryDataSource.subscribe((detail) => {
-      setId(detail.requestId);
-    }).unsubscribe;
-  }, []);
-
+  const [detail] = useDetail();
   const requestRow = useMemo(() => {
-    return requestRows.find((row) => row.id === id);
-  }, [requestRows, id]);
+    return requestRows.find((row) => row.id === detail.requestId);
+  }, [requestRows, detail]);
 
   return (
     <Tab.Panel>

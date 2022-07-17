@@ -2,13 +2,13 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import { tabs } from "../TabGroup";
 import IconClose from "./tab-list/IconClose";
-import { resolve, Tokens } from "@/service-locator";
+import useDetail from "@/presentations/composables/use-detail";
 
 const TabList = () => {
-  const detailInMemoryDataSource = resolve(Tokens.DetailInMemoryDataSource);
-
+  const [detail, setDetail] = useDetail();
   const handleClear = () => {
-    detailInMemoryDataSource.patch({
+    setDetail({
+      ...detail,
       requestId: null,
     });
   };
