@@ -3,7 +3,7 @@ injectScript();
 
 function forwardMessage() {
   let isReady = false;
-  let pendingPayloads = [];
+  let payloadBuffer = [];
   window.addEventListener("message", handleMessageEvent);
   const port = chrome.runtime.connect({ name: "content-script" });
   port.onMessage.addListener(handleMessage);
@@ -28,14 +28,14 @@ function forwardMessage() {
   }
   function handleMessageEvent(event) {
     if (event.data.source && event.data.source === "__gRPC_devtools__") {
-      pendingPayloads = pendingPayloads.concat(event.data.payload);
+      payloadBuffer = payloadBuffer.concat(event.data.payload);
       flushIfReady();
     }
   }
   function flushIfReady() {
     if (isReady) {
-      pendingPayloads.forEach((payload) => port.postMessage(payload));
-      pendingPayloads = [];
+      payloadBuffer.forEach((payload) => port.postMessage(payload));
+      payloadBuffer = [];
     }
   }
 }
