@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Checkbox from "@/presentations/components/Checkbox";
-import { resolve, Tokens } from "@/service-locator";
+import useFilter from "@/presentations/composables/use-filter";
+import { Filter } from "@/entities/filter";
 
 const Invert = () => {
-  const filterInMemoryDataSource = resolve(Tokens.FilterInMemoryDataSource);
-
-  const [invert, setInvert] = useState(filterInMemoryDataSource.get().invert);
-  useEffect(() => {
-    return filterInMemoryDataSource.subscribe((filter) => {
-      setInvert(filter.invert);
-    }).unsubscribe;
-  }, []);
-  useEffect(() => {
-    filterInMemoryDataSource.patch({
-      invert,
+  const [filter, setFilter] = useFilter();
+  const setInvert = (invert: Filter["invert"]) => {
+    setFilter({
+      ...filter,
+      invert: invert,
     });
-  }, [invert]);
+  };
 
   return (
     <div className="flex items-center h-[24px]">
-      <Checkbox checked={invert} onChange={(e) => setInvert(e.target.checked)}>
+      <Checkbox
+        checked={filter.invert}
+        onChange={(e) => setInvert(e.target.checked)}
+      >
         <span>Invert</span>
       </Checkbox>
     </div>

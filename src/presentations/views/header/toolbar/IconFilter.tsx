@@ -1,5 +1,6 @@
 import { resolve, Tokens } from "@/service-locator";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import useFilter from "@/presentations/composables/use-filter";
 
 const IconFilter = () => {
   const filterRepo = resolve(Tokens.FilterRepo);
@@ -11,13 +12,10 @@ const IconFilter = () => {
     filterRepo.patch({});
   }, [shouldOpenFilterBar]);
 
-  const [isFiltering, setIsFiltering] = useState(false);
-  useEffect(() => {
-    const subscription = filterRepo.subscribe((filter) => {
-      setIsFiltering(filter.text.length > 0);
-    });
-    return subscription.unsubscribe;
-  }, []);
+  const [filter] = useFilter();
+  const isFiltering = useMemo(() => {
+    return filter.text.length > 0;
+  }, [filter]);
 
   return (
     <button
