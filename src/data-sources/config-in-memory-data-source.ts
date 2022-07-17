@@ -8,6 +8,7 @@ export class ConfigInMemoryDataSource {
   private config: Config = {
     shouldPreserveLog: false,
     shouldRecord: true,
+    shouldShowFilterBar: true,
   };
 
   subscribe = (
@@ -36,6 +37,9 @@ export class ConfigInMemoryDataSource {
 
       if (config.shouldRecord !== undefined)
         draft.shouldRecord = config.shouldRecord;
+
+      if (config.shouldShowFilterBar !== undefined)
+        draft.shouldShowFilterBar = config.shouldShowFilterBar;
     });
 
     this.subscribers.forEach((subscriber) => subscriber.next(this.config));
