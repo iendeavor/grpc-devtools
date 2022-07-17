@@ -1,19 +1,14 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Tab } from "@headlessui/react";
 import ReactJsonView from "react-json-view";
-import useDetail from "@/presentations/composables/use-detail";
-import useRequestRows from "@/presentations/composables/use-request-rows";
+import useRequestRow from "@/presentations/composables/use-request-row";
 
 const TabPanelResponse = () => {
-  const [requestRows] = useRequestRows();
-  const [detail] = useDetail();
-  const requestRow = useMemo(() => {
-    return requestRows.find((row) => row.id === detail.requestId);
-  }, [requestRows, detail]);
+  const requestRow = useRequestRow();
 
   return (
     <Tab.Panel>
-      {requestRow?.responseMessage !== undefined ? (
+      {requestRow?.responseMessage ? (
         <ReactJsonView
           src={requestRow!.responseMessage!}
           theme="grayscale"
