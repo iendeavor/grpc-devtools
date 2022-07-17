@@ -1,23 +1,16 @@
-import { resolve, Tokens } from "@/service-locator";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import useFilter from "@/presentations/composables/use-filter";
 import { Config } from "@/entities/config";
+import useConfig from "@/presentations/composables/use-config";
 
 const IconFilter = () => {
   const [isHovering, setIsHovering] = useState(false);
 
-  const configRepo = resolve(Tokens.ConfigRepo);
-  const [config, setConfig] = useState(configRepo.get());
-  useEffect(() => {
-    const subscription = configRepo.subscribe((config) => {
-      setConfig(config);
-    });
-    return () => subscription.unsubscribe();
-  }, []);
+  const [config, setConfig] = useConfig();
   const setShouldShowFilterBar = (
     shouldShowFilterBar: Config["shouldShowFilterBar"]
   ) => {
-    configRepo.patch({
+    setConfig({
       ...config,
       shouldShowFilterBar: shouldShowFilterBar,
     });

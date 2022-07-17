@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Checkbox from "@/presentations/components/Checkbox";
-import { resolve, Tokens } from "@/service-locator";
+import useConfig from "@/presentations/composables/use-config";
 
 const PreserveLog = () => {
-  const configRepo = resolve(Tokens.ConfigRepo);
-  const [shouldPreserveLog, setShouldPreserveLog] = useState(
-    configRepo.get().shouldPreserveLog
-  );
-  useEffect(() => {
-    configRepo.patch({
-      shouldPreserveLog,
+  const [config, setConfig] = useConfig();
+  const handleToggleShouldPreserveLog = () => {
+    setConfig({
+      ...config,
+      shouldPreserveLog: !config.shouldPreserveLog,
     });
-  }, [shouldPreserveLog]);
+  };
 
   return (
     <div className="flex items-center h-[25px]">
       <Checkbox
-        checked={shouldPreserveLog}
-        onChange={(e) => setShouldPreserveLog(e.target.checked)}
+        checked={config.shouldPreserveLog}
+        onChange={handleToggleShouldPreserveLog}
       >
         <span>Preserve log</span>
       </Checkbox>
