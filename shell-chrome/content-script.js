@@ -6,15 +6,15 @@ function forwardMessage() {
   let payloadBuffer = [];
   window.addEventListener("message", handleMessageEvent);
   const port = chrome.runtime.connect({ name: "content-script" });
-  port.onMessage.addListener(handleMessage);
+  port.onMessage.addListener(handlePortMessage);
   port.onDisconnect.addListener(() => {
     window.removeEventListener("message", handleMessageEvent);
-    port?.onMessage.removeListener(handleMessage);
+    port?.onMessage.removeListener(handlePortMessage);
     port = null;
   });
   port.postMessage("ready");
 
-  function handleMessage(message) {
+  function handlePortMessage(message) {
     if (message === "ready") {
       handshake();
     }
