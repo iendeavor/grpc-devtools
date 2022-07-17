@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "18",
+    "npm": "8",
+    "yarn": "1",
+    "pnpm": "7"
+  },
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.6.7",
+    "@grpc/proto-loader": "^0.6.12"
+  }
+}
