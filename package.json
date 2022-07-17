@@ -23,7 +23,8 @@
     "react-json-view": "^1.21.3",
     "react-use": "^17.4.0",
     "react-virtuoso": "^2.16.1",
-    "rxjs": "^7.5.5"
+    "rxjs": "^7.5.5",
+    "zod": "^3.17.3"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
