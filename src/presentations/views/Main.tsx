@@ -19,6 +19,17 @@ const Main = ({ headerHeight }: { headerHeight: number }) => {
       requestId: requestRows[0]!.id,
     });
   };
+  useEffect(() => {
+    resetDetailRequestIdIfRequestRowsIsEmpty();
+  }, [requestRows]);
+  const resetDetailRequestIdIfRequestRowsIsEmpty = () => {
+    if (requestRows.length) return;
+    if (detail.requestId === null) return;
+    setDetail({
+      ...detail,
+      requestId: null,
+    });
+  };
 
   const isDetailVisible = useMemo(() => detail.requestId !== null, [detail]);
 
