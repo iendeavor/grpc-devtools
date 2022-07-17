@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import RequestDetail from "./body/RequestDetail";
-import RequestRows from "./body/RequestRows";
+import RequestDetail from "./main/RequestDetail";
+import RequestRows from "./main/RequestRows";
 import { RequestRow } from "@/entities/request-row";
 import useDetail from "@/presentations/composables/use-detail";
 import useRequestRows from "@/presentations/composables/use-request-rows";
