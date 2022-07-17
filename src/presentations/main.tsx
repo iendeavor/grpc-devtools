@@ -56,6 +56,14 @@ if (
     });
   }
 } else {
+  window.addEventListener("beforeunload", () => {
+    if (configRepo.get().shouldPreserveLog) {
+      requestRowsRepo.hydrate();
+    } else {
+      requestRowsRepo.deleteAll();
+    }
+  });
+
   const offset = requestRowsRepo.getAll().length;
   const requestRows: RequestRow[] = Array(10)
     .fill(null)
