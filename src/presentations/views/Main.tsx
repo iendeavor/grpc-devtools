@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import RequestDetail from "./main/RequestDetail";
 import RequestRows from "./main/RequestRows";
 import { RequestRow } from "@/entities/request-row";
@@ -18,7 +18,9 @@ const Main = ({ headerHeight }: { headerHeight: number }) => {
   const isDetailVisible = useMemo(() => detail.requestId !== null, [detail]);
 
   const [requestRows] = useRequestRows();
-  setFirstRequestRowAsDetailIfMissing(requestRows);
+  useEffect(() => {
+    setFirstRequestRowAsDetailIfMissing(requestRows);
+  }, [requestRows]);
 
   return (
     <main className="flex flex-col bg-background-elevation-1 overflow-y-auto">
