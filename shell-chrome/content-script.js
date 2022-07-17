@@ -4,14 +4,16 @@ injectScript();
 function forwardMessage() {
   let isReady = false;
   let payloadBuffer = [];
-  window.addEventListener("message", handleMessageEvent);
+
   const port = chrome.runtime.connect({ name: "content-script" });
   port.onMessage.addListener(handlePortMessage);
+  window.addEventListener("message", handleMessageEvent);
   port.onDisconnect.addListener(() => {
     window.removeEventListener("message", handleMessageEvent);
     port?.onMessage.removeListener(handlePortMessage);
     port = null;
   });
+
   port.postMessage("ready");
 
   function handlePortMessage(message) {
