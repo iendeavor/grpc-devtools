@@ -4,8 +4,7 @@ import TabList from "./tab-group/TabList";
 import TabPanels from "./tab-group/TabPanels";
 import HorizontalDivider from "@/presentations/components/HorizontalDivider";
 import useDetail from "@/presentations/composables/use-detail";
-
-export const tabs = ["headers", "request", "preview", "response"] as const;
+import { tabs } from "@/entities/detail";
 
 const TabGroup = () => {
   const [detail, setDetail] = useDetail();

@@ -1,8 +1,8 @@
 import React from "react";
 import { Tab } from "@headlessui/react";
-import { tabs } from "../TabGroup";
 import IconClose from "./tab-list/IconClose";
 import useDetail from "@/presentations/composables/use-detail";
+import { tabs } from "@/entities/detail";
 
 const TabList = () => {
   const [detail, setDetail] = useDetail();
