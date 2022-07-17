@@ -1,9 +1,9 @@
-import { resolve, Tokens } from "@/service-locator";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import RequestDetail from "./body/RequestDetail";
 import RequestRows from "./body/RequestRows";
 import { RequestRow } from "@/entities/request-row";
 import useDetail from "@/presentations/composables/use-detail";
+import useRequestRows from "@/presentations/composables/use-request-rows";
 
 const Main = ({ headerHeight }: { headerHeight: number }) => {
   const [detail, setDetail] = useDetail();
@@ -17,11 +17,8 @@ const Main = ({ headerHeight }: { headerHeight: number }) => {
   };
   const isDetailVisible = useMemo(() => detail.requestId !== null, [detail]);
 
-  const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
-  setFirstRequestRowAsDetailIfMissing(requestRowsRepo.getAll());
-  useEffect(() => {
-    return requestRowsRepo.subscribe(() => void 0).unsubscribe;
-  }, []);
+  const [requestRows] = useRequestRows();
+  setFirstRequestRowAsDetailIfMissing(requestRows);
 
   return (
     <main className="flex flex-col bg-background-elevation-1 overflow-y-auto">

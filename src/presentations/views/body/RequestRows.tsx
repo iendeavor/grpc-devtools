@@ -3,6 +3,7 @@ import { useWindowSize } from "react-use";
 import { Virtuoso } from "react-virtuoso";
 import RequestRow from "./request-rows/RequestRow";
 import { resolve, Tokens } from "@/service-locator";
+import useRequestRows from "@/presentations/composables/use-request-rows";
 
 const RequestRows = ({
   className,
@@ -11,16 +12,9 @@ const RequestRows = ({
   className?: React.HTMLAttributes<HTMLElement>["className"];
   headerHeight: number;
 }) => {
-  const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
   const filterRepo = resolve(Tokens.FilterRepo);
 
-  const [requestRows, setRequestRows] = useState(requestRowsRepo.getAll());
-  useEffect(() => {
-    const subscriber = () => {
-      setRequestRows(requestRowsRepo.getAll());
-    };
-    return requestRowsRepo.subscribe(subscriber).unsubscribe;
-  }, []);
+  const [requestRows] = useRequestRows();
 
   const [filter, setFilter] = useState(filterRepo.get());
   useEffect(() => {

@@ -1,22 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Tab } from "@headlessui/react";
-import { resolve, Tokens } from "@/service-locator";
-import { RequestRow } from "@/entities/request-row";
 import ReactJsonView from "react-json-view";
 import useDetail from "@/presentations/composables/use-detail";
+import useRequestRows from "@/presentations/composables/use-request-rows";
 
 const TabPanelResponse = () => {
-  const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
-
-  const [requestRows, setRequestRows] = useState<RequestRow[]>(
-    requestRowsRepo.getAll()
-  );
-  useEffect(() => {
-    return requestRowsRepo.subscribe(() => {
-      setRequestRows(requestRowsRepo.getAll());
-    }).unsubscribe;
-  }, []);
-
+  const [requestRows] = useRequestRows();
   const [detail] = useDetail();
   const requestRow = useMemo(() => {
     return requestRows.find((row) => row.id === detail.requestId);
