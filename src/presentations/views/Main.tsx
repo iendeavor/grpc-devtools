@@ -27,7 +27,7 @@ const Main = ({ headerHeight }: { headerHeight: number }) => {
       <div className="flex flex-row">
         <RequestRows
           headerHeight={headerHeight}
-          className="min-w-[30%]"
+          className={isDetailVisible ? "min-w-[30%]" : "w-full"}
         ></RequestRows>
         {isDetailVisible && <RequestDetail></RequestDetail>}
       </div>
