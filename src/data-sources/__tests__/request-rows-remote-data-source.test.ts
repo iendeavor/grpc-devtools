@@ -1,4 +1,4 @@
-import { RequestRowsChromeDevtoolsDataSource } from "@/data-sources/request-rows-chrome-devtools-data-source";
+import { RequestRowsChromeDevtoolsDataSource } from "@/data-sources/request-rows-remote-data-source";
 import { SafeSubscriber } from "rxjs/internal/Subscriber";
 
 describe("onPost", () => {

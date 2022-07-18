@@ -2,7 +2,7 @@ import { ConfigInMemoryDataSource } from "@/data-sources/config-in-memory-data-s
 import { ConfigLocalDataSource } from "@/data-sources/config-local-data-source";
 import { DetailInMemoryDataSource } from "@/data-sources/detail-in-memory-data-source";
 import { FilterInMemoryDataSource } from "@/data-sources/filter-in-memory-data-source";
-import { RequestRowsChromeDevtoolsDataSource } from "@/data-sources/request-rows-chrome-devtools-data-source";
+import { RequestRowsChromeDevtoolsDataSource } from "@/data-sources/request-rows-remote-data-source";
 import { RequestRowsInMemoryDataSource } from "@/data-sources/request-rows-in-memory-data-source";
 import { RequestRowsLocalDataSource } from "@/data-sources/request-rows-local-data-source";
 import { ConfigRepo } from "@/repos/config-repo";
