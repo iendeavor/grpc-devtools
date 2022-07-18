@@ -9,7 +9,7 @@ const TabPanelRequest = () => {
   const headers = useMemo(() => {
     return {
       General: {
-        "Method Name": requestRow?.methodName,
+        "Method Name": requestRow?.request.methodDescriptor.name,
       },
     };
   }, [requestRow]);

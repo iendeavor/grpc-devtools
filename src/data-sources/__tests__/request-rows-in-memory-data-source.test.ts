@@ -1,4 +1,5 @@
 import { RequestRowsInMemoryDataSource } from "@/data-sources/request-rows-in-memory-data-source";
+import { RequestRow } from "@/entities/request-row";
 import { SafeSubscriber } from "rxjs/internal/Subscriber";
 
 describe("getAll", () => {
@@ -8,9 +9,13 @@ describe("getAll", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ];
@@ -21,9 +26,13 @@ describe("getAll", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ]);
@@ -39,9 +48,13 @@ describe("post", () => {
     dataSource.post({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
       },
     });
 
@@ -50,9 +63,13 @@ describe("post", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ]);
@@ -65,9 +82,13 @@ describe("post", () => {
     dataSource.post({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
       },
     });
 
@@ -78,13 +99,17 @@ describe("post", () => {
 describe("put", () => {
   it("should be able to put data", () => {
     const dataSource = new RequestRowsInMemoryDataSource();
-    const requestRows = <any>[
+    const requestRows = <RequestRow[]>[
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ];
@@ -93,12 +118,21 @@ describe("put", () => {
     dataSource.put({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
       },
-      responseMessage: {
-        id: 1,
+      response: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        responseMessage: {
+          id: 1,
+        },
       },
     });
 
@@ -106,9 +140,13 @@ describe("put", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ]);
@@ -116,12 +154,21 @@ describe("put", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
-        responseMessage: {
-          id: 1,
+        response: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          responseMessage: {
+            id: 1,
+          },
         },
       },
     ]);
@@ -133,9 +180,13 @@ describe("put", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ];
@@ -144,9 +195,13 @@ describe("put", () => {
     dataSource.put({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
       },
     });
 
@@ -165,18 +220,26 @@ describe("postOrPut", () => {
     dataSource.postOrPut({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
       },
     });
 
     expect(dataSource.post).toBeCalledWith({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
       },
     });
     expect(dataSource.put).not.toBeCalled();
@@ -188,9 +251,13 @@ describe("postOrPut", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ];
@@ -200,9 +267,21 @@ describe("postOrPut", () => {
     dataSource.postOrPut({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
+      },
+      response: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        responseMessage: {
+          id: 1,
+        },
       },
     });
 
@@ -210,9 +289,21 @@ describe("postOrPut", () => {
     expect(dataSource.put).toBeCalledWith({
       id: "1",
       type: "unary",
-      methodName: "/users",
-      requestMessage: {
-        name: "john",
+      request: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        requestMessage: {
+          name: "john",
+        },
+      },
+      response: {
+        methodDescriptor: {
+          name: "/users",
+        },
+        responseMessage: {
+          id: 1,
+        },
       },
     });
   });
@@ -225,9 +316,13 @@ describe("deleteAll", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ];
@@ -239,9 +334,13 @@ describe("deleteAll", () => {
       {
         id: "1",
         type: "unary",
-        methodName: "/users",
-        requestMessage: {
-          name: "john",
+        request: {
+          methodDescriptor: {
+            name: "/users",
+          },
+          requestMessage: {
+            name: "john",
+          },
         },
       },
     ]);

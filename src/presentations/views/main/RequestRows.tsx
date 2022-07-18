@@ -32,13 +32,13 @@ const RequestRows = ({
           ? (s: string) => RegExp(filter.text.slice(1, -1)).test(s)
           : (s: string) => s.includes(filter.text);
 
-      return requestRows.filter(({ methodName }) => {
+      return requestRows.filter(({ request }) => {
         if (filter.text.length === 0) return true;
 
         if (filter.invert === false) {
-          return test(methodName);
+          return test(request.methodDescriptor.name);
         } else {
-          return test(methodName) === false;
+          return test(request.methodDescriptor.name) === false;
         }
       });
     } catch (error) {

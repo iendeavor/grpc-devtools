@@ -9,7 +9,7 @@ const TabPanelRequest = () => {
   return (
     <Tab.Panel>
       {requestRow ? (
-        <ReadonlyPre object={requestRow.requestMessage}></ReadonlyPre>
+        <ReadonlyPre object={requestRow.request.requestMessage}></ReadonlyPre>
       ) : (
         <div>No content available</div>
       )}

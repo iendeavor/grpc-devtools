@@ -1,8 +1,16 @@
 export type RequestRow = {
   id: string;
   type: "unary";
-  methodName: string;
-  requestMessage: Record<string, unknown>;
-  responseMessage?: Record<string, unknown>;
-  error?: Error;
+  request: {
+    methodDescriptor: {
+      name: string;
+    };
+    requestMessage: Record<string, unknown>;
+  };
+  response?: {
+    methodDescriptor: {
+      name: string;
+    };
+    responseMessage: Record<string, unknown>;
+  };
 };

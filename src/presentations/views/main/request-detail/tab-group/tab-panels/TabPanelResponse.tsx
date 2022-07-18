@@ -8,8 +8,8 @@ const TabPanelResponse = () => {
 
   return (
     <Tab.Panel>
-      {requestRow?.responseMessage ? (
-        <ReadonlyPre object={requestRow?.responseMessage}></ReadonlyPre>
+      {requestRow?.response?.responseMessage ? (
+        <ReadonlyPre object={requestRow.response.responseMessage}></ReadonlyPre>
       ) : (
         <div>No content available</div>
       )}

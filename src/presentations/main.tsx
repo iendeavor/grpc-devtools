@@ -72,21 +72,30 @@ if (
       return {
         id: index.toString(),
         type: "unary",
-        methodName: `/Service/getUser${index}`,
-        requestMessage: {
-          users: [
-            {
-              id: index.toString(),
-            },
-          ],
+        request: {
+          methodDescriptor: {
+            name: `/Service/getUser${index}`,
+          },
+          requestMessage: {
+            users: [
+              {
+                id: index.toString(),
+              },
+            ],
+          },
         },
-        responseMessage: {
-          users: Array(100)
-            .fill(null)
-            .map(() => ({
-              id: index.toString(),
-              name: "foo".repeat(100),
-            })),
+        response: {
+          methodDescriptor: {
+            name: `/Service/getUser${index}`,
+          },
+          responseMessage: {
+            users: Array(100)
+              .fill(null)
+              .map(() => ({
+                id: index.toString(),
+                name: "foo".repeat(100),
+              })),
+          },
         },
       };
     });

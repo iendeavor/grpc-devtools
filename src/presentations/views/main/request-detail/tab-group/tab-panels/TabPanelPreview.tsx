@@ -8,9 +8,9 @@ const TabPanelResponse = () => {
 
   return (
     <Tab.Panel>
-      {requestRow?.responseMessage ? (
+      {requestRow?.response?.responseMessage ? (
         <ReactJsonView
-          src={requestRow!.responseMessage!}
+          src={requestRow.response.responseMessage}
           theme="grayscale"
           name="$"
           collapsed={1}

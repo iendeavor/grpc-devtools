@@ -4,10 +4,20 @@ const postMessageToContentScript = ({ id, type, request, response, error }) => {
     payload: {
       id,
       type,
-      methodName: request.getMethodDescriptor().name,
-      requestMessage: request.getRequestMessage().toObject(),
-      responseMessage: response?.getResponseMessage().toObject(),
-      error,
+      request: {
+        methodDescriptor: {
+          name: request.getMethodDescriptor().name,
+        },
+        requestMessage: request.getRequestMessage().toObject(),
+      },
+      response: response
+        ? {
+            methodDescriptor: {
+              name: response.getMethodDescriptor().name,
+            },
+            responseMessage: response.getResponseMessage().toObject(),
+          }
+        : undefined,
     },
   };
   window.postMessage(message, "*");
