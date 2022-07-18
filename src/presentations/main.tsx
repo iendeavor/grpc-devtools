@@ -73,6 +73,7 @@ if (
         id: index.toString(),
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: `/Service/getUser${index}`,
           },
@@ -85,6 +86,7 @@ if (
           },
         },
         response: {
+          metadata: {},
           methodDescriptor: {
             name: `/Service/getUser${index}`,
           },

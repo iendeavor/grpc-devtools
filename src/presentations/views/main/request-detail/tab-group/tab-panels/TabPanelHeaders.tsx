@@ -11,6 +11,8 @@ const TabPanelRequest = () => {
       General: {
         "Method Name": requestRow?.request.methodDescriptor.name,
       },
+      Response: requestRow?.response ? requestRow.response.metadata : undefined,
+      Request: requestRow?.request ? requestRow.request.metadata : undefined,
     };
   }, [requestRow]);
 

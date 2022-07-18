@@ -5,6 +5,7 @@ const postMessageToContentScript = ({ id, type, request, response, error }) => {
       id,
       type,
       request: {
+        metadata: request.getMetadata(),
         methodDescriptor: {
           name: request.getMethodDescriptor().name,
         },
@@ -12,6 +13,7 @@ const postMessageToContentScript = ({ id, type, request, response, error }) => {
       },
       response: response
         ? {
+            metadata: response.getMetadata(),
             methodDescriptor: {
               name: response.getMethodDescriptor().name,
             },

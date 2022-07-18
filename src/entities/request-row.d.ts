@@ -2,12 +2,14 @@ export type RequestRow = {
   id: string;
   type: "unary";
   request: {
+    metadata: Record<string, unknown>;
     methodDescriptor: {
       name: string;
     };
     requestMessage: Record<string, unknown>;
   };
   response?: {
+    metadata: Record<string, unknown>;
     methodDescriptor: {
       name: string;
     };

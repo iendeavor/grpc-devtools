@@ -10,6 +10,7 @@ describe("getAll", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -27,6 +28,7 @@ describe("getAll", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -49,6 +51,7 @@ describe("post", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -64,6 +67,7 @@ describe("post", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -83,6 +87,7 @@ describe("post", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -104,6 +109,7 @@ describe("put", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -119,6 +125,7 @@ describe("put", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -127,6 +134,7 @@ describe("put", () => {
         },
       },
       response: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -141,6 +149,7 @@ describe("put", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -155,6 +164,7 @@ describe("put", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -163,6 +173,7 @@ describe("put", () => {
           },
         },
         response: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -181,6 +192,7 @@ describe("put", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -196,6 +208,7 @@ describe("put", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -221,6 +234,7 @@ describe("postOrPut", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -234,6 +248,7 @@ describe("postOrPut", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -252,6 +267,7 @@ describe("postOrPut", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -268,6 +284,7 @@ describe("postOrPut", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -276,6 +293,7 @@ describe("postOrPut", () => {
         },
       },
       response: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -290,6 +308,7 @@ describe("postOrPut", () => {
       id: "1",
       type: "unary",
       request: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -298,6 +317,7 @@ describe("postOrPut", () => {
         },
       },
       response: {
+        metadata: {},
         methodDescriptor: {
           name: "/users",
         },
@@ -317,6 +337,7 @@ describe("deleteAll", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
@@ -335,6 +356,7 @@ describe("deleteAll", () => {
         id: "1",
         type: "unary",
         request: {
+          metadata: {},
           methodDescriptor: {
             name: "/users",
           },
