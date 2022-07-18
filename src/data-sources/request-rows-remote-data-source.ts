@@ -2,7 +2,7 @@ import { RequestRow } from "@/entities/request-row";
 import produce from "immer";
 import { Observable, Subscriber } from "rxjs";
 
-export class RequestRowsChromeDevtoolsDataSource {
+export class RequestRowsRemoteDataSource {
   private subscribers: Subscriber<RequestRow[]>[] = [];
 
   subscribe = (

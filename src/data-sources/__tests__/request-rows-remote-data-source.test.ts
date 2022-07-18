@@ -1,9 +1,9 @@
-import { RequestRowsChromeDevtoolsDataSource } from "@/data-sources/request-rows-remote-data-source";
+import { RequestRowsRemoteDataSource } from "@/data-sources/request-rows-remote-data-source";
 import { SafeSubscriber } from "rxjs/internal/Subscriber";
 
 describe("onPost", () => {
   it("should be able to subscribe", () => {
-    const dataSource = new RequestRowsChromeDevtoolsDataSource();
+    const dataSource = new RequestRowsRemoteDataSource();
     const subscribers = <any>[];
     dataSource["subscribers"] = subscribers;
     const subscriber = jest.fn();
@@ -15,7 +15,7 @@ describe("onPost", () => {
   });
 
   it("should be able to unsubscribe", () => {
-    const dataSource = new RequestRowsChromeDevtoolsDataSource();
+    const dataSource = new RequestRowsRemoteDataSource();
     const subscriber = jest.fn();
     const subscription = dataSource.subscribe(subscriber);
 

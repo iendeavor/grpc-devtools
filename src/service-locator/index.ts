@@ -2,7 +2,7 @@ import { ConfigInMemoryDataSource } from "@/data-sources/config-in-memory-data-s
 import { ConfigLocalDataSource } from "@/data-sources/config-local-data-source";
 import { DetailInMemoryDataSource } from "@/data-sources/detail-in-memory-data-source";
 import { FilterInMemoryDataSource } from "@/data-sources/filter-in-memory-data-source";
-import { RequestRowsChromeDevtoolsDataSource } from "@/data-sources/request-rows-remote-data-source";
+import { RequestRowsRemoteDataSource } from "@/data-sources/request-rows-remote-data-source";
 import { RequestRowsInMemoryDataSource } from "@/data-sources/request-rows-in-memory-data-source";
 import { RequestRowsLocalDataSource } from "@/data-sources/request-rows-local-data-source";
 import { ConfigRepo } from "@/repos/config-repo";
@@ -14,7 +14,7 @@ export const Tokens = {
   ConfigLocalDataSource: "ConfigLocalDataSource",
   DetailInMemoryDataSource: "DetailInMemoryDataSource",
   FilterInMemoryDataSource: "FilterInMemoryDataSource",
-  RequestRowsChromeDevtoolsDataSource: "RequestRowsChromeDevtoolsDataSource",
+  RequestRowsRemoteDataSource: "RequestRowsRemoteDataSource",
   RequestRowsInMemoryDataSource: "RequestRowsInMemoryDataSource",
   RequestRowsLocalDataSource: "RequestRowsLocalDataSource",
 
@@ -28,7 +28,7 @@ const singletons = {} as {
   ConfigLocalDataSource: ConfigLocalDataSource;
   DetailInMemoryDataSource: DetailInMemoryDataSource;
   FilterInMemoryDataSource: FilterInMemoryDataSource;
-  RequestRowsChromeDevtoolsDataSource: RequestRowsChromeDevtoolsDataSource;
+  RequestRowsRemoteDataSource: RequestRowsRemoteDataSource;
   RequestRowsInMemoryDataSource: RequestRowsInMemoryDataSource;
   RequestRowsLocalDataSource: RequestRowsLocalDataSource;
 
@@ -41,8 +41,8 @@ singletons[Tokens.ConfigInMemoryDataSource] = new ConfigInMemoryDataSource();
 singletons[Tokens.ConfigLocalDataSource] = new ConfigLocalDataSource();
 singletons[Tokens.DetailInMemoryDataSource] = new DetailInMemoryDataSource();
 singletons[Tokens.FilterInMemoryDataSource] = new FilterInMemoryDataSource();
-singletons[Tokens.RequestRowsChromeDevtoolsDataSource] =
-  new RequestRowsChromeDevtoolsDataSource();
+singletons[Tokens.RequestRowsRemoteDataSource] =
+  new RequestRowsRemoteDataSource();
 singletons[Tokens.RequestRowsInMemoryDataSource] =
   new RequestRowsInMemoryDataSource();
 singletons[Tokens.RequestRowsLocalDataSource] =
