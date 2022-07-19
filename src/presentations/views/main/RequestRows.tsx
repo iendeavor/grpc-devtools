@@ -29,8 +29,15 @@ const RequestRows = ({
         filter.text.startsWith("/") &&
         filter.text.length >= 2 &&
         filter.text.endsWith("/")
-          ? (s: string) => RegExp(filter.text.slice(1, -1)).test(s)
-          : (s: string) => s.includes(filter.text);
+          ? (s: string) =>
+              RegExp(
+                filter.text.slice(1, -1),
+                filter.caseSensitive ? undefined : "i"
+              ).test(s)
+          : (s: string) =>
+              filter.caseSensitive
+                ? s.includes(filter.text)
+                : s.toLowerCase().includes(filter.text.toLowerCase());
 
       return requestRows.filter(({ request }) => {
         if (filter.text.length === 0) return true;

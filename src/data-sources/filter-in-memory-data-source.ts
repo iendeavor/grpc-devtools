@@ -6,6 +6,7 @@ export class FilterInMemoryDataSource {
   private subscribers: Subscriber<Filter>[] = [];
 
   private filter: Filter = {
+    caseSensitive: false,
     invert: false,
     text: "",
   };
@@ -31,6 +32,9 @@ export class FilterInMemoryDataSource {
 
   patch = (filter: Partial<Filter>): void => {
     this.filter = produce(this.filter, (draft) => {
+      if (filter.caseSensitive !== undefined)
+        draft.caseSensitive = filter.caseSensitive;
+
       if (filter.invert !== undefined) draft.invert = filter.invert;
 
       if (filter.text !== undefined) draft.text = filter.text;
