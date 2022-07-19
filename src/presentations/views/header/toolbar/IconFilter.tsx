@@ -18,7 +18,7 @@ const IconFilter = () => {
 
   const [filter] = useFilter();
   const isFiltering = useMemo(() => {
-    return filter.text.length > 0;
+    return filter.text.length > 0 || filter.caseSensitive || filter.invert;
   }, [filter]);
 
   return (
