@@ -4,6 +4,7 @@ import { Virtuoso } from "react-virtuoso";
 import RequestRow from "./request-rows/RequestRow";
 import { resolve, Tokens } from "@/service-locator";
 import useRequestRows from "@/presentations/composables/use-request-rows";
+import useFilter from "@/presentations/composables/use-filter";
 
 const RequestRows = ({
   className,
@@ -16,10 +17,7 @@ const RequestRows = ({
 
   const [requestRows] = useRequestRows();
 
-  const [filter, setFilter] = useState(filterRepo.get());
-  useEffect(() => {
-    return filterRepo.subscribe((filter) => setFilter(filter)).unsubscribe;
-  }, []);
+  const [filter] = useFilter();
 
   const filteredRequestRows = useMemo(() => {
     try {
