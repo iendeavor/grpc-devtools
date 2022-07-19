@@ -6,6 +6,7 @@ import { RequestRowsRemoteDataSource } from "@/data-sources/request-rows-remote-
 import { RequestRowsInMemoryDataSource } from "@/data-sources/request-rows-in-memory-data-source";
 import { RequestRowsLocalDataSource } from "@/data-sources/request-rows-local-data-source";
 import { ConfigRepo } from "@/repos/config-repo";
+import { DetailRepo } from "@/repos/detail-repo";
 import { FilterRepo } from "@/repos/filter-repo";
 import { RequestRowsRepo } from "@/repos/request-rows-repo";
 
@@ -19,6 +20,7 @@ export const Tokens = {
   RequestRowsLocalDataSource: "RequestRowsLocalDataSource",
 
   ConfigRepo: "ConfigRepo",
+  DetailRepo: "DetailRepo",
   FilterRepo: "FilterRepo",
   RequestRowsRepo: "RequestRowsRepo",
 } as const;
@@ -33,6 +35,7 @@ const singletons = {} as {
   RequestRowsLocalDataSource: RequestRowsLocalDataSource;
 
   ConfigRepo: ConfigRepo;
+  DetailRepo: DetailRepo;
   FilterRepo: FilterRepo;
   RequestRowsRepo: RequestRowsRepo;
 };
@@ -49,6 +52,7 @@ singletons[Tokens.RequestRowsLocalDataSource] =
   new RequestRowsLocalDataSource();
 
 singletons[Tokens.ConfigRepo] = new ConfigRepo();
+singletons[Tokens.DetailRepo] = new DetailRepo();
 singletons[Tokens.FilterRepo] = new FilterRepo();
 singletons[Tokens.RequestRowsRepo] = new RequestRowsRepo();
 
