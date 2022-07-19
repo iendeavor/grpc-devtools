@@ -12,11 +12,7 @@ const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
 requestRowsRepo.hydrate();
 const configRepo = resolve(Tokens.ConfigRepo);
 
-if (
-  typeof chrome !== "undefined" &&
-  typeof chrome.runtime !== "undefined" &&
-  typeof chrome.devtools !== "undefined"
-) {
+if (__ENV__.MODE === "production") {
   chrome.devtools.network.onNavigated.addListener(() => {
     if (configRepo.get().shouldPreserveLog) {
       requestRowsRepo.hydrate();
@@ -55,7 +51,9 @@ if (
       requestRows: [message],
     });
   }
-} else {
+}
+
+if (__ENV__.MODE === "development") {
   window.addEventListener("beforeunload", () => {
     if (configRepo.get().shouldPreserveLog) {
       requestRowsRepo.hydrate();
