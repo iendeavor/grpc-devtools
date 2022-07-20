@@ -40,10 +40,12 @@ const RequestRows = ({
       return requestRows.filter(({ request }) => {
         if (filter.text.length === 0) return true;
 
+        const shortMethodName =
+          request.methodDescriptor.name.split("/").pop() ?? "";
         if (filter.invert === false) {
-          return test(request.methodDescriptor.name);
+          return test(shortMethodName);
         } else {
-          return test(request.methodDescriptor.name) === false;
+          return test(shortMethodName) === false;
         }
       });
     } catch (error) {

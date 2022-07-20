@@ -9,7 +9,13 @@ const TabPanelRequest = () => {
   const headers = useMemo(() => {
     return {
       General: {
-        "Method Name": requestRow?.request.methodDescriptor.name,
+        "Service Name": requestRow?.request.methodDescriptor.name
+          .split("/")
+          .slice(1, -1)
+          .join("/"),
+        "Method Name": requestRow?.request.methodDescriptor.name
+          .split("/")
+          .pop(),
       },
       Response: requestRow?.response ? requestRow.response.metadata : undefined,
       Request: requestRow?.request ? requestRow.request.metadata : undefined,
