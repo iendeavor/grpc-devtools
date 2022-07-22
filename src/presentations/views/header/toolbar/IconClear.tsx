@@ -25,7 +25,7 @@ const IconClear = () => {
         <div
           className={
             "absolute w-[13px] h-[2px] rotate-45 transition-colors" +
-            (isHovering ? " bg-text-primary" : " bg-text-secondary")
+            (isHovering ? " bg-[#e8eaed]" : " bg-[#919191]")
           }
         ></div>
       </div>

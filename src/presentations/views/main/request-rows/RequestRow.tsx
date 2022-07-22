@@ -24,7 +24,7 @@ const RequestRow = ({
 
   return (
     <div className={className} onClick={handleClick}>
-      <div className="px-2">
+      <div className="px-2 py-[2px]">
         {requestRow.request.methodDescriptor.name.split("/").pop()}
       </div>
     </div>

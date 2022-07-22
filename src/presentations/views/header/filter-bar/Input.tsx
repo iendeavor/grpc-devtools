@@ -31,13 +31,13 @@ const Input = () => {
       className={
         "flex items-center w-32 border bg-background transition-colors text-xs pl-1" +
         (isFiltering || hasFocus
-          ? " border-primary-variant"
+          ? " border-[#10629d]"
           : " border-[transparent] hover:border-text-secondary/50")
       }
     >
       <input
         ref={inputRef}
-        className="w-full text-text-primary bg-background py-[1px]"
+        className="w-full text-[#bbc3cc] placeholder:text-[#9aa0a6] bg-background py-[1px]"
         placeholder={"Filter"}
         value={filter.text}
         onChange={(e) => handleChange(e.target.value)}

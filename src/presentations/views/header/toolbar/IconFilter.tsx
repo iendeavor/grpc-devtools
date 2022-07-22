@@ -34,10 +34,10 @@ const IconFilter = () => {
           (isFiltering
             ? " text-text-error"
             : config.shouldShowFilterBar
-            ? " text-primary"
+            ? " text-[#8ab4f7]"
             : isHovering
-            ? " text-text-primary"
-            : " text-text-secondary")
+            ? " text-[#e8eaed]"
+            : " text-[#919191]")
         }
       >
         filter_alt

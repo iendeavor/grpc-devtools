@@ -14,21 +14,21 @@ const Checkbox = ({
   return (
     <>
       <label
-        className="flex items-center text-xs text-secondary hover:text-text-primary"
+        className="flex items-center text-xs text-[#9aa0a6] hover:text-[#e8eaed]"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
         <div
           className={
-            "flex items-center justify-center w-3 h-3 mr-[6px] rounded-sm border p-0 bg-background-elevation-2 transition-colors" +
-            (isHovering ? " border-text-primary" : " border-secondary")
+            "flex items-center justify-center w-3 h-3 mr-[6px] rounded-sm border p-0 bg-[#3b3b3b] transition-colors" +
+            (isHovering ? " border-[#acacac]" : " border-[#858585]")
           }
         >
           <input
             checked={checked}
             onChange={onChange}
             type="checkbox"
-            className={checked ? "accent-[rgb(255_165_0)]" : "appearance-none"}
+            className={checked ? "accent-[#ffa500]" : "appearance-none"}
           ></input>
         </div>
         {children}

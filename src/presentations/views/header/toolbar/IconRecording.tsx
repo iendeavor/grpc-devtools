@@ -23,9 +23,9 @@ const IconRecording = () => {
         className={
           "relative flex justify-center items-center rounded-full transition-colors" +
           (config.shouldRecord
-            ? " bg-text-error w-[12px] h-[12px] m-[2.5px]"
+            ? " bg-[#f18b82] w-[12px] h-[12px] m-[2.5px]"
             : " w-[13px] h-[13px] m-[2px]" +
-              (isHovering ? " bg-text-primary" : " bg-text-secondary"))
+              (isHovering ? " bg-[#e8eaed]" : " bg-[#919191]"))
         }
       >
         {config.shouldRecord ? (
