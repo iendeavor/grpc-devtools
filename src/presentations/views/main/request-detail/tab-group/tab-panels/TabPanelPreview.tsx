@@ -7,7 +7,7 @@ const TabPanelResponse = () => {
   const requestRow = useRequestRow();
 
   return (
-    <Tab.Panel>
+    <Tab.Panel className="h-full">
       {requestRow?.response?.responseMessage ? (
         <ReactJsonView
           src={requestRow.response.responseMessage}
@@ -15,8 +15,12 @@ const TabPanelResponse = () => {
           name="$"
           collapsed={1}
         ></ReactJsonView>
+      ) : requestRow?.error ? (
+        <div className="flex justify-center items-center h-full">
+          Failed to load response data.
+        </div>
       ) : (
-        <div>No content available</div>
+        <></>
       )}
     </Tab.Panel>
   );

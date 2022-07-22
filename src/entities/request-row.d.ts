@@ -15,4 +15,12 @@ export type RequestRow = {
     };
     responseMessage: Record<string, unknown>;
   };
+  error?: {
+    metadata: Record<string, unknown>;
+    methodDescriptor: {
+      name: string;
+    };
+    code: string;
+    message: string;
+  };
 };

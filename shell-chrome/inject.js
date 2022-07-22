@@ -20,6 +20,14 @@ const postMessageToContentScript = ({ id, type, request, response, error }) => {
             responseMessage: response.getResponseMessage().toObject(),
           }
         : undefined,
+      error: error
+        ? {
+            metadata: error.metadata,
+            methodDescriptor: {
+              name: request.getMethodDescriptor().name,
+            },
+          }
+        : undefined,
     },
   };
   window.postMessage(message, "*");

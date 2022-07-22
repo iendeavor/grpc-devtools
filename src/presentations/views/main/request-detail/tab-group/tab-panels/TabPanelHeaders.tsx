@@ -17,7 +17,11 @@ const TabPanelRequest = () => {
           .split("/")
           .pop(),
       },
-      Response: requestRow?.response ? requestRow.response.metadata : undefined,
+      Response: requestRow?.response
+        ? requestRow.response.metadata
+        : requestRow?.error
+        ? requestRow.error.metadata
+        : undefined,
       Request: requestRow?.request ? requestRow.request.metadata : undefined,
     };
   }, [requestRow]);

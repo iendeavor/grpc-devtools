@@ -83,20 +83,43 @@ if (__ENV__.MODE === "development") {
             ],
           },
         },
-        response: {
-          metadata: {},
-          methodDescriptor: {
-            name: `/Service/getUser${index}`,
-          },
-          responseMessage: {
-            users: Array(100)
-              .fill(null)
-              .map(() => ({
-                id: index.toString(),
-                name: "foo".repeat(100),
-              })),
-          },
-        },
+        ...(Math.random() > 0.3
+          ? {
+              response: {
+                metadata: {
+                  "cache-control": "no-cache",
+                },
+                methodDescriptor: {
+                  name: `/Service/getUser${index}`,
+                },
+                responseMessage: {
+                  users: Array(100)
+                    .fill(null)
+                    .map(() => ({
+                      id: index.toString(),
+                      name: "foo".repeat(100),
+                    })),
+                },
+              },
+            }
+          : {
+              error: {
+                metadata: {
+                  "cache-control": "no-cache",
+                  "content-length": "0",
+                  "content-type": "application/grpc-web-text+proto",
+                  "grpc-message":
+                    "rpc error: code = code = Unimplemented desc = method Hello not implemented",
+                  "grpc-status": "GRPC_STATUS_UNIMPLEMENTED",
+                },
+                methodDescriptor: {
+                  name: `/Service/getUser${index}`,
+                },
+                code: "13",
+                message:
+                  "%E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4: rpc error: code = Internal desc = %E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4: Error 1062: Duplicate entry '999b9a86-7aee-4d51-83de-02894d38092d-a47faecf-cd66-42c2-829b-cf2' for key 'lady_followers.lady_object_id'",
+              },
+            }),
       };
     });
 

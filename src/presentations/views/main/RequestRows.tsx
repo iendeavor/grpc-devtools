@@ -6,6 +6,7 @@ import { resolve, Tokens } from "@/service-locator";
 import useRequestRows from "@/presentations/composables/use-request-rows";
 import useFilter from "@/presentations/composables/use-filter";
 import { RequestRow as IRequestRow } from "@/entities/request-row";
+import { getClassName as _getClassName } from "./request-rows/get-class-name";
 
 const RequestRows = ({
   className,
@@ -71,47 +72,68 @@ const RequestRows = ({
     };
   }, []);
 
+  const [isWindowFocus, setIsWindowFocus] = useState(document.hasFocus());
+  useEffect(() => {
+    const handleWindowFocus = () => {
+      setIsWindowFocus(true);
+    };
+    const handleWindowBlur = () => {
+      setIsWindowFocus(false);
+    };
+    window.addEventListener("focus", handleWindowFocus);
+    window.addEventListener("blur", handleWindowBlur);
+    return () => {
+      window.removeEventListener("focus", handleWindowFocus);
+      window.removeEventListener("blur", handleWindowBlur);
+    };
+  }, []);
+
   const getClassName = (requestRow: undefined | IRequestRow, index: number) => {
-    const classNames = [
+    const isActive = activeId === requestRow?.id;
+    const isError = !!requestRow?.error;
+    const isOdd = index % 2 === 1;
+
+    return [
       "flex",
       "flex-row",
       "text-sm",
-      "hover:text-text-primary",
-    ];
-
-    if (activeId === requestRow?.id) {
-      classNames.push("text-text-primary", "bg-[rgb(50_110_180)]");
-    } else {
-      classNames.push("hover:bg-primary/10");
-    }
-
-    if (index % 2) {
-      classNames.push("bg-background");
-    } else {
-      classNames.push("bg-background-elevation-1");
-    }
-
-    return classNames.join(" ");
+      "select-none",
+      !isActive && "hover:bg-[#192438]",
+      ..._getClassName({
+        isWindowFocus,
+        isActive,
+        isError,
+        isOdd,
+      }),
+    ].join(" ");
   };
 
   return (
-    <div className={"flex flex-col border border-primary-border " + className}>
-      <Virtuoso
-        style={{ height: windowSize.height - headerHeight - 2 }}
-        totalCount={filteredRequestRows.length}
-        itemContent={(index) =>
-          typeof filteredRequestRows[index] !== "undefined" ? (
-            <RequestRow
-              key={filteredRequestRows[index]!.id}
-              requestRow={filteredRequestRows[index]!}
-              className={getClassName(filteredRequestRows[index], index)}
-              onClick={() => setActiveId(filteredRequestRows[index]!.id)}
-            ></RequestRow>
-          ) : (
-            <></>
-          )
-        }
-      />
+    <div
+      className={
+        "flex flex-col border border-primary-border bg-[#202124] " + className
+      }
+    >
+      {requestRows.length ? (
+        <Virtuoso
+          style={{ height: windowSize.height - headerHeight - 2 }}
+          totalCount={filteredRequestRows.length}
+          itemContent={(index) =>
+            typeof filteredRequestRows[index] !== "undefined" ? (
+              <RequestRow
+                key={filteredRequestRows[index]!.id}
+                requestRow={filteredRequestRows[index]!}
+                className={getClassName(filteredRequestRows[index], index)}
+                onClick={() => setActiveId(filteredRequestRows[index]!.id)}
+              ></RequestRow>
+            ) : (
+              <></>
+            )
+          }
+        />
+      ) : (
+        <div className="m-auto">Recording gRPC activity...</div>
+      )}
     </div>
   );
 };
