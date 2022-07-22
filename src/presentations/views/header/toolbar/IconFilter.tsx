@@ -32,7 +32,7 @@ const IconFilter = () => {
         className={
           "flex justify-center items-center w-[13px] h-[13px] m-[2px] material-symbols-rounded font-bold scale-[0.7] transition-colors" +
           (isFiltering
-            ? " text-text-error"
+            ? " text-[#f18b82]"
             : config.shouldShowFilterBar
             ? " text-[#8ab4f7]"
             : isHovering
