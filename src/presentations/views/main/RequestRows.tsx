@@ -5,6 +5,7 @@ import RequestRow from "./request-rows/RequestRow";
 import { resolve, Tokens } from "@/service-locator";
 import useRequestRows from "@/presentations/composables/use-request-rows";
 import useFilter from "@/presentations/composables/use-filter";
+import { RequestRow as IRequestRow } from "@/entities/request-row";
 
 const RequestRows = ({
   className,
@@ -70,6 +71,29 @@ const RequestRows = ({
     };
   }, []);
 
+  const getClassName = (requestRow: undefined | IRequestRow, index: number) => {
+    const classNames = [
+      "flex",
+      "flex-row",
+      "text-sm",
+      "hover:text-text-primary",
+    ];
+
+    if (activeId === requestRow?.id) {
+      classNames.push("text-text-primary", "bg-[rgb(50_110_180)]");
+    } else {
+      classNames.push("hover:bg-primary/10");
+    }
+
+    if (index % 2) {
+      classNames.push("bg-background");
+    } else {
+      classNames.push("bg-background-elevation-1");
+    }
+
+    return classNames.join(" ");
+  };
+
   return (
     <div className={"flex flex-col border border-primary-border " + className}>
       <Virtuoso
@@ -80,13 +104,7 @@ const RequestRows = ({
             <RequestRow
               key={filteredRequestRows[index]!.id}
               requestRow={filteredRequestRows[index]!}
-              className={
-                "flex flex-row text-sm hover:text-text-primary" +
-                (activeId === filteredRequestRows[index]!.id
-                  ? " text-text-primary bg-[rgb(50_110_180)]"
-                  : " hover:bg-primary/10") +
-                (index % 2 ? " bg-background" : " bg-background-elevation-1")
-              }
+              className={getClassName(filteredRequestRows[index], index)}
               onClick={() => setActiveId(filteredRequestRows[index]!.id)}
             ></RequestRow>
           ) : (
