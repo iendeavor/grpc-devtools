@@ -123,5 +123,9 @@ if (__ENV__.MODE === "development") {
       };
     });
 
-  postOrPutMultipleRequestRows({ requestRows });
+  requestRows.forEach((requestRow, index) => {
+    setTimeout(() => {
+      postOrPutMultipleRequestRows({ requestRows: [requestRow] });
+    }, index * 300);
+  });
 }
