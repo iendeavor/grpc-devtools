@@ -171,9 +171,8 @@ const RequestRows = ({
   const scrollerRef = React.useCallback(
     (element: HTMLElement | Window | null) => {
       if (element) {
-        listRef?.removeEventListener("keydown", handleScrollerKeydown as any);
-        element.addEventListener("keydown", handleScrollerKeydown as any);
         setListRef(element);
+        listRef?.addEventListener("keydown", handleScrollerKeydown as any);
       } else {
         listRef?.removeEventListener("keydown", handleScrollerKeydown as any);
       }
