@@ -6,4 +6,4 @@ export type Detail = {
   };
 };
 
-export const tabs = ["headers", "request", "preview", "response"] as const;
+export const tabs = ["headers", "request", "response", "preview"] as const;

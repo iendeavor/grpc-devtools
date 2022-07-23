@@ -185,7 +185,7 @@ const RequestRows = ({
   return (
     <div
       ref={wrapperRef}
-      className={"flex flex-col border border-[#4a4c50] " + className}
+      className={"flex flex-col h-full border border-[#4a4c50] " + className}
     >
       {requestRows.length ? (
         <Virtuoso
@@ -212,7 +212,9 @@ const RequestRows = ({
           scrollerRef={scrollerRef}
         />
       ) : (
-        <div className="m-auto">Recording gRPC activity...</div>
+        <div className="absolute flex justify-center items-center w-full h-full">
+          Recording gRPC activity...
+        </div>
       )}
     </div>
   );

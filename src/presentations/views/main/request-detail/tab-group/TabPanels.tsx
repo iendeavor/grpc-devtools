@@ -11,11 +11,14 @@ const TabPanels = () => {
   const isFocusIn = useIsFocusIn({ ref, initialValue: false });
 
   return (
-    <Tab.Panels ref={ref} className="absolute w-full top-[25px] right-0 bottom-0 left-0 overflow-auto">
+    <Tab.Panels
+      ref={ref}
+      className="absolute w-full top-[25px] right-0 bottom-0 left-0 overflow-auto"
+    >
       <TabPanelHeaders isFocusIn={isFocusIn}></TabPanelHeaders>
       <TabPanelRequest></TabPanelRequest>
-      <TabPanelPreview></TabPanelPreview>
       <TabPanelResponse></TabPanelResponse>
+      <TabPanelPreview></TabPanelPreview>
     </Tab.Panels>
   );
 };
