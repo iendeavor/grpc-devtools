@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-const useIsFocusIn = (ref: React.RefObject<HTMLElement>) => {
-  const [isFocusIn, setIsFocusIn] = useState(document.hasFocus());
+const useIsFocusIn = ({
+  ref,
+  initialValue,
+}: {
+  ref: React.RefObject<HTMLElement>;
+  initialValue: boolean;
+}) => {
+  const [isFocusIn, setIsFocusIn] = useState(initialValue);
   useEffect(() => {
     const handleFocus = () => {
       setIsFocusIn(true);

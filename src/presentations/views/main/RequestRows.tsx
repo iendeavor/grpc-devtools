@@ -62,7 +62,10 @@ const RequestRows = ({
   const [detail, setDetail] = useDetail();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const isFocus = useIsFocusIn(wrapperRef);
+  const isFocus = useIsFocusIn({
+    ref: wrapperRef,
+    initialValue: document.hasFocus(),
+  });
 
   const getClassName = (requestRow: undefined | IRequestRow, index: number) => {
     const isActive = detail.requestId === requestRow?.id;

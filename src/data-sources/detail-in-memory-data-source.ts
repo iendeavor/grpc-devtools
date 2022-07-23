@@ -8,6 +8,9 @@ export class DetailInMemoryDataSource {
   private detail: Detail = {
     requestId: null,
     currentTab: "headers",
+    headers: {
+      focusIndex: 0,
+    },
   };
 
   subscribe = (
@@ -31,6 +34,8 @@ export class DetailInMemoryDataSource {
 
   patch = (detail: Partial<Detail>): void => {
     this.detail = produce(this.detail, (draft) => {
+      if (detail.currentTab !== undefined) draft.currentTab = detail.currentTab;
+      if (detail.headers !== undefined) draft.headers = detail.headers;
       if (detail.requestId !== undefined) draft.requestId = detail.requestId;
     });
 
