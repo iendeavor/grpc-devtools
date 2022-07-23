@@ -11,7 +11,7 @@ const IconClear = () => {
 
   return (
     <button
-      className="flex items-center h-[26px] px-1 -mr-1 focus-visible:bg-background-elevation-2 cursor-default"
+      className="flex items-center h-[26px] px-1 -mr-1 focus-visible:bg-[#35363a] cursor-default"
       onClick={handleClear}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

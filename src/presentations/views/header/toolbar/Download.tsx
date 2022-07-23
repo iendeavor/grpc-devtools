@@ -7,7 +7,7 @@ const Download = () => {
 
   return (
     <button
-      className="flex items-center h-[26px] px-1 -mr-1 cursor-default focus-visible:bg-background-elevation-2"
+      className="flex items-center h-[26px] px-1 -mr-1 cursor-default focus-visible:bg-[#35363a]"
       onClick={download}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

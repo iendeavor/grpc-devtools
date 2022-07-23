@@ -183,9 +183,7 @@ const RequestRows = ({
   return (
     <div
       ref={wrapperRef}
-      className={
-        "flex flex-col border border-primary-border bg-[#202124] " + className
-      }
+      className={"flex flex-col border border-[#4a4c50] " + className}
     >
       {requestRows.length ? (
         <Virtuoso

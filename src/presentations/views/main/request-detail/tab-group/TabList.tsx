@@ -14,7 +14,7 @@ const TabList = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center bg-[#292a2d]">
       <IconClose onClear={handleClear}></IconClose>
       <Tab.List>
         {({ selectedIndex }) => (
@@ -26,8 +26,8 @@ const TabList = () => {
                   className={
                     "py-1 px-2 cursor-default" +
                     (selectedIndex === index
-                      ? " text-text-primary bg-[black]"
-                      : " hover:bg-background-elevation-2")
+                      ? " text-[#eaeaea] bg-[#000000]"
+                      : " hover:bg-[#35363a]")
                   }
                 >
                   {tab.toUpperCase()[0] + tab.toLowerCase().slice(1)}

@@ -23,7 +23,7 @@ const IconFilter = () => {
 
   return (
     <button
-      className="flex items-center h-[26px] px-1 -ml-1 cursor-default focus-visible:bg-background-elevation-2"
+      className="flex items-center h-[26px] px-1 -ml-1 cursor-default focus-visible:bg-[#35363a]"
       onClick={() => setShouldShowFilterBar(!config.shouldShowFilterBar)}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

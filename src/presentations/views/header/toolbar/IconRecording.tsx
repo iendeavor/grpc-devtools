@@ -14,7 +14,7 @@ const IconRecording = () => {
 
   return (
     <button
-      className="flex items-center h-[26px] px-1 cursor-default focus-visible:bg-background-elevation-2"
+      className="flex items-center h-[26px] px-1 cursor-default focus-visible:bg-[#35363a]"
       onClick={handleToggleShouldRecord}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -29,7 +29,7 @@ const IconRecording = () => {
         }
       >
         {config.shouldRecord ? (
-          <div className="absolute rounded-full w-4 h-4 bg-text-error opacity-30 blur-[1px]"></div>
+          <div className="absolute rounded-full w-4 h-4 bg-[#e59390] opacity-30 blur-[1px]"></div>
         ) : (
           <></>
         )}
