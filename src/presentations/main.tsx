@@ -76,11 +76,12 @@ if (__ENV__.MODE === "development") {
             name: `/Service/getUser${index}`,
           },
           requestMessage: {
-            users: [
-              {
+            users: Array(500)
+              .fill(null)
+              .map(() => ({
                 id: index.toString(),
-              },
-            ],
+                request: "foo ".repeat(100),
+              })),
           },
         },
         ...(Math.random() > 0.3
@@ -93,11 +94,11 @@ if (__ENV__.MODE === "development") {
                   name: `/Service/getUser${index}`,
                 },
                 responseMessage: {
-                  users: Array(100)
+                  users: Array(500)
                     .fill(null)
                     .map(() => ({
                       id: index.toString(),
-                      name: "foo".repeat(100),
+                      response: "foo ".repeat(100),
                     })),
                 },
               },

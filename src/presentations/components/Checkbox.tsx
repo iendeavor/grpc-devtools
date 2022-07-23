@@ -14,7 +14,7 @@ const Checkbox = ({
   return (
     <>
       <label
-        className="flex items-center text-xs text-[#9aa0a6] hover:text-[#e8eaed]"
+        className="flex items-center text-[#9aa0a6] hover:text-[#e8eaed]"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >

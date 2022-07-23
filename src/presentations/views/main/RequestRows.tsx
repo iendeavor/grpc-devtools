@@ -75,7 +75,6 @@ const RequestRows = ({
     return [
       "flex",
       "flex-row",
-      "text-xs",
       "select-none",
       !isActive && "hover:bg-[#192438]",
       ..._getClassName({

@@ -29,7 +29,7 @@ const Input = () => {
   return (
     <div
       className={
-        "flex items-center w-32 border bg-background transition-colors text-xs pl-1" +
+        "flex items-center w-32 border bg-background transition-colors pl-1" +
         (isFiltering || hasFocus
           ? " border-[#10629d]"
           : " border-[transparent] hover:border-text-secondary/50")

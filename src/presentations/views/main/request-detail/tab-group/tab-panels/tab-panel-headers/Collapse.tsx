@@ -7,22 +7,29 @@ const Collapse = ({
   value,
   isFocusIn,
   offsetIndexes,
+  displayCountOnCollapse,
 }: {
   title: string;
   value: Record<string, string>;
   isFocusIn: boolean;
   offsetIndexes: number[];
+  displayCountOnCollapse?: boolean;
 }) => {
   const [detail, setDetail] = useDetail();
 
   const [isExpanding, setIsExpanding] = useToggle(true);
 
-  const lines = (Object.keys(value) as (keyof typeof value)[]).reduce<
-    readonly (readonly [string, string])[]
-  >((acc, key) => {
-    const line = [key, value[key]!] as const;
-    return [...acc, line];
-  }, []);
+  const lines = useMemo(
+    () =>
+      (Object.keys(value) as (keyof typeof value)[])
+        .reduce<readonly (readonly [string, string])[]>((acc, key) => {
+          const line = [key, value[key]!] as const;
+          return [...acc, line];
+        }, [])
+        .slice()
+        .sort((a, b) => a[0].localeCompare(b[0])),
+    [value]
+  );
 
   const offsetIndex = useMemo(() => {
     return offsetIndexes.reduce((acc, offset) => acc + offset + 1, 0) - 1;
@@ -52,7 +59,7 @@ const Collapse = ({
   );
 
   return (
-    <div className="text-sm">
+    <div className="cursor-default">
       <>
         <div
           className={
@@ -82,7 +89,9 @@ const Collapse = ({
           </span>
           <span className="font-bold -ml-1">
             {title}
-            {!isExpanding && <span>&nbsp;({lines.length})</span>}
+            {!isExpanding && displayCountOnCollapse && (
+              <span>&nbsp;({lines.length})</span>
+            )}
           </span>
         </div>
         {isExpanding &&
@@ -91,7 +100,7 @@ const Collapse = ({
               <div
                 key={line.join(": ")}
                 className={
-                  "pt-1 pl-[30px]" +
+                  "pl-[30px] leading-[2]" +
                   (isFocusIn &&
                   detail.headers.focusIndex === getLineOffsetIndex(index)
                     ? " bg-[#10629d]"
@@ -102,20 +111,17 @@ const Collapse = ({
                 tabIndex={1}
                 onClick={() => handleClickLine(index)}
               >
-                <span
+                <div
                   className={
-                    "font-bold" +
-                    (isFocusIn &&
+                    isFocusIn &&
                     detail.headers.focusIndex === getLineOffsetIndex(index)
                       ? " text-[#cdcdcd]"
-                      : " text-[#9aa0a6]")
+                      : " text-[#9aa0a6]"
                   }
                 >
-                  {line[0]}
-                </span>
-                <span>:</span>
-                <span className="pl-2 text-[#cdcdcd]">{line[1]}</span>
-                <br />
+                  <span className="font-bold">{line[0]}:&nbsp;&nbsp;</span>
+                  <span className="text-[#cdcdcd]">{line[1]}</span>
+                </div>
               </div>
             );
           })}

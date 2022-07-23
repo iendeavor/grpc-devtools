@@ -7,11 +7,12 @@ const TabPanelRequest = () => {
   const requestRow = useRequestRow();
 
   return (
-    <Tab.Panel>
-      {requestRow ? (
-        <ReadonlyPre object={requestRow.request.requestMessage}></ReadonlyPre>
-      ) : (
-        <div>No content available</div>
+    <Tab.Panel className="h-full p-1">
+      {requestRow && (
+        <ReadonlyPre
+          className="h-full w-full overflow-auto"
+          object={requestRow.request.requestMessage}
+        ></ReadonlyPre>
       )}
     </Tab.Panel>
   );

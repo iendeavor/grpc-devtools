@@ -1,16 +1,15 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import { Tab } from "@headlessui/react";
 import useRequestRow from "@/presentations/composables/use-request-row";
 import Collapse from "./tab-panel-headers/Collapse";
 import HorizontalDivider from "@/presentations/components/HorizontalDivider";
-import useIsFocusIn from "@/presentations/composables/use-is-focus-in";
 
-const TabPanelRequest = () => {
+const TabPanelRequest = ({ isFocusIn }: { isFocusIn: boolean }) => {
   const requestRow = useRequestRow();
 
   const headers = useMemo(() => {
     return {
-      General: {
+      general: {
         "Service Name":
           requestRow?.request.methodDescriptor.name
             .split("/")
@@ -19,45 +18,44 @@ const TabPanelRequest = () => {
         "Method Name":
           requestRow?.request.methodDescriptor.name.split("/").pop() ?? "",
       },
-      Response: requestRow?.response
+      responseMetadata: requestRow?.response
         ? requestRow.response.metadata
         : requestRow?.error
         ? requestRow.error.metadata
         : {},
-      Request: requestRow?.request ? requestRow.request.metadata : {},
+      requestMetadata: requestRow?.request ? requestRow.request.metadata : {},
     };
   }, [requestRow]);
 
-  const ref = useRef<HTMLDivElement | null>(null);
-  const isFocusIn = useIsFocusIn({ ref, initialValue: false });
-
   return (
-    <Tab.Panel ref={ref}>
+    <Tab.Panel className="mt-0.5">
       {requestRow ? (
         <>
           <Collapse
             title="General"
-            value={headers.General}
+            value={headers.general}
             isFocusIn={isFocusIn}
             offsetIndexes={[0]}
           ></Collapse>
-          <HorizontalDivider className="my-1"></HorizontalDivider>
+          <HorizontalDivider className="mt-1.5"></HorizontalDivider>
           <Collapse
-            title="Response"
-            value={headers.Response}
+            title="Response Metadata"
+            value={headers.responseMetadata}
             isFocusIn={isFocusIn}
-            offsetIndexes={[0, Object.keys(headers.General).length]}
+            offsetIndexes={[0, Object.keys(headers.general).length]}
+            displayCountOnCollapse
           ></Collapse>
-          <HorizontalDivider className="my-1"></HorizontalDivider>
+          <HorizontalDivider className="mt-1.5"></HorizontalDivider>
           <Collapse
-            title="Request"
-            value={headers.Request}
+            title="Request Metadata"
+            value={headers.requestMetadata}
             isFocusIn={isFocusIn}
             offsetIndexes={[
               0,
-              Object.keys(headers.General).length,
-              Object.keys(headers.Response).length,
+              Object.keys(headers.general).length,
+              Object.keys(headers.responseMetadata).length,
             ]}
+            displayCountOnCollapse
           ></Collapse>
         </>
       ) : (

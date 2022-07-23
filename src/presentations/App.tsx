@@ -7,7 +7,7 @@ const App = () => {
   const [headerRef, { height }] = useMeasure<HTMLDivElement>();
 
   return (
-    <div className="flex flex-col text-text-secondary bg-background w-screen h-screen overflow-hidden">
+    <div className="flex flex-col text-text-secondary bg-background w-screen h-screen overflow-hidden text-xs">
       <Header headerRef={headerRef}></Header>
       <Main headerHeight={height}></Main>
     </div>
