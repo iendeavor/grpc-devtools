@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import { useWindowSize } from "react-use";
-import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import RequestRow from "./request-rows/RequestRow";
 import { resolve, Tokens } from "@/service-locator";
 import useRequestRows from "@/presentations/composables/use-request-rows";
@@ -9,6 +8,7 @@ import { RequestRow as IRequestRow } from "@/entities/request-row";
 import { getClassName as _getClassName } from "./request-rows/get-class-name";
 import useIsFocusIn from "@/presentations/composables/use-is-focus-in";
 import useDetail from "@/presentations/composables/use-detail";
+import VirtualList from "@/presentations/components/VirtualList";
 
 const RequestRows = ({
   className,
@@ -41,15 +41,13 @@ const RequestRows = ({
                 ? s.includes(filter.text)
                 : s.toLowerCase().includes(filter.text.toLowerCase());
 
-      return requestRows.filter(({ request }) => {
+      return requestRows.filter(({ methodName }) => {
         if (filter.text.length === 0) return true;
 
-        const shortMethodName =
-          request.methodDescriptor.name.split("/").pop() ?? "";
         if (filter.invert === false) {
-          return test(shortMethodName);
+          return test(methodName);
         } else {
-          return test(shortMethodName) === false;
+          return test(methodName) === false;
         }
       });
     } catch (error) {
@@ -69,7 +67,7 @@ const RequestRows = ({
 
   const getClassName = (requestRow: undefined | IRequestRow, index: number) => {
     const isActive = detail.requestId === requestRow?.id;
-    const isError = !!requestRow?.error;
+    const isError = !!requestRow?.errorMetadata;
     const isOdd = index % 2 === 1;
 
     return [
@@ -86,100 +84,41 @@ const RequestRows = ({
     ].join(" ");
   };
 
-  const virtusoRef = useRef<VirtuosoHandle>(null);
-  const [listRef, setListRef] = useState<HTMLElement | Window | null>(null);
-  const handleScrollerKeydown = useCallback(
-    (e: KeyboardEvent) => {
-      const currentIndex = filteredRequestRows.findIndex(
+  const renderItem = (index: number) =>
+    typeof filteredRequestRows[index] !== "undefined" ? (
+      <RequestRow
+        key={filteredRequestRows[index]!.id}
+        requestRow={filteredRequestRows[index]!}
+        className={getClassName(filteredRequestRows[index], index)}
+        onClick={() =>
+          setDetail({
+            ...detail,
+            requestId: filteredRequestRows[index]!.id,
+          })
+        }
+      ></RequestRow>
+    ) : (
+      <></>
+    );
+
+  const currentIndex = useMemo(
+    () =>
+      filteredRequestRows.findIndex(
         (requestRow) => requestRow.id === detail.requestId
-      );
-
-      if (e.metaKey && e.key === "ArrowUp") {
-        e.preventDefault();
-        const firstIndex = 0;
-        virtusoRef.current?.scrollIntoView({
-          index: firstIndex,
-          behavior: "auto",
-          done: () => {
-            const firstRequestRow = filteredRequestRows[firstIndex];
-            if (firstRequestRow) {
-              setDetail({
-                ...detail,
-                requestId: firstRequestRow.id,
-              });
-            }
-          },
-        });
-      } else if (e.metaKey && e.key === "ArrowDown") {
-        e.preventDefault();
-        const lastIndex = filteredRequestRows.length - 1;
-        virtusoRef.current?.scrollIntoView({
-          index: lastIndex,
-          behavior: "auto",
-          done: () => {
-            const lastRequestRow = filteredRequestRows[lastIndex];
-            if (lastRequestRow) {
-              setDetail({
-                ...detail,
-                requestId: lastRequestRow.id,
-              });
-            }
-          },
-        });
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        if (isFocus === false) return;
-        if (currentIndex === -1) return;
-        if (currentIndex === 0) return;
-        const prevIndex = currentIndex - 1;
-
-        virtusoRef.current?.scrollIntoView({
-          index: prevIndex,
-          behavior: "auto",
-          done: () => {
-            const prevRequestRow = filteredRequestRows[prevIndex];
-            if (prevRequestRow) {
-              setDetail({
-                ...detail,
-                requestId: prevRequestRow.id,
-              });
-            }
-          },
-        });
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        if (isFocus === false) return;
-        if (currentIndex === -1) return;
-        if (currentIndex === filteredRequestRows.length - 1) return;
-        const nextIndex = currentIndex + 1;
-
-        virtusoRef.current?.scrollIntoView({
-          index: nextIndex,
-          behavior: "auto",
-          done: () => {
-            const nextRequestRow = filteredRequestRows[nextIndex];
-            if (nextRequestRow) {
-              setDetail({
-                ...detail,
-                requestId: nextRequestRow.id,
-              });
-            }
-          },
-        });
-      }
-    },
-    [virtusoRef, filteredRequestRows, detail]
+      ),
+    [filteredRequestRows, detail]
   );
-  const scrollerRef = React.useCallback(
-    (element: HTMLElement | Window | null) => {
-      if (element) {
-        setListRef(element);
-        listRef?.addEventListener("keydown", handleScrollerKeydown as any);
-      } else {
-        listRef?.removeEventListener("keydown", handleScrollerKeydown as any);
+  const handleDone = useCallback(
+    (index: number) => {
+      const requestRow = filteredRequestRows[index];
+      if (requestRow) {
+        setDetail({
+          ...detail,
+          requestId: requestRow.id,
+        });
       }
     },
-    [handleScrollerKeydown]
+    [filteredRequestRows, setDetail]
   );
 
   return (
@@ -188,28 +127,12 @@ const RequestRows = ({
       className={"flex flex-col h-full border border-[#4a4c50] " + className}
     >
       {requestRows.length ? (
-        <Virtuoso
-          ref={virtusoRef}
+        <VirtualList
+          data={filteredRequestRows}
+          currentIndex={currentIndex}
+          renderItem={renderItem}
           style={{ height: windowSize.height - headerHeight - 2 }}
-          totalCount={filteredRequestRows.length}
-          itemContent={(index) =>
-            typeof filteredRequestRows[index] !== "undefined" ? (
-              <RequestRow
-                key={filteredRequestRows[index]!.id}
-                requestRow={filteredRequestRows[index]!}
-                className={getClassName(filteredRequestRows[index], index)}
-                onClick={() =>
-                  setDetail({
-                    ...detail,
-                    requestId: filteredRequestRows[index]!.id,
-                  })
-                }
-              ></RequestRow>
-            ) : (
-              <></>
-            )
-          }
-          scrollerRef={scrollerRef}
+          onDone={handleDone}
         />
       ) : (
         <div className="absolute flex justify-center items-center w-full h-full">

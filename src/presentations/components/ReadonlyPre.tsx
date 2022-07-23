@@ -3,9 +3,11 @@ import React, { useEffect, useRef } from "react";
 const ReadonlyPre = ({
   object,
   className,
+  onScroll,
 }: {
   object: any;
   className?: React.HTMLAttributes<HTMLPreElement>["className"];
+  onScroll?: React.UIEventHandler<HTMLPreElement>;
 }) => {
   const noop = (e: any) => {
     if (e.metaKey) return;
@@ -33,6 +35,7 @@ const ReadonlyPre = ({
       onCut={noop}
       onPaste={noop}
       onKeyDown={noop}
+      onScroll={onScroll}
     ></pre>
   );
 };

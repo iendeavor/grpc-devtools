@@ -8,16 +8,16 @@ describe("getAll", () => {
     dataSource["requestRows"] = [
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ];
 
@@ -26,16 +26,16 @@ describe("getAll", () => {
     expect(result).toEqual([
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ]);
   });
@@ -49,32 +49,32 @@ describe("post", () => {
 
     dataSource.post({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
-        },
-      },
+      ],
     });
 
     expect(requestRows).toEqual([]);
     expect(dataSource["requestRows"]).toEqual([
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ]);
   });
@@ -85,16 +85,16 @@ describe("post", () => {
 
     dataSource.post({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
-        },
-      },
+      ],
     });
 
     expect(dataSource["callSubscribers"]).toBeCalled();
@@ -107,80 +107,74 @@ describe("put", () => {
     const requestRows = <RequestRow[]>[
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ];
     dataSource["requestRows"] = requestRows;
 
     dataSource.put({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      responseMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
+        {
+          type: "response",
+          data: { id: 1 },
+          timestamp: 0,
         },
-      },
-      response: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
-        },
-        responseMessage: {
-          id: 1,
-        },
-      },
+      ],
     });
 
     expect(requestRows).toEqual([
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ]);
     expect(dataSource["requestRows"]).toEqual([
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        responseMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
+          {
+            type: "response",
+            data: { id: 1 },
+            timestamp: 0,
           },
-        },
-        response: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
-          },
-          responseMessage: {
-            id: 1,
-          },
-        },
+        ],
       },
     ]);
   });
@@ -190,32 +184,32 @@ describe("put", () => {
     dataSource["requestRows"] = [
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ];
     dataSource["callSubscribers"] = jest.fn();
 
     dataSource.put({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
-        },
-      },
+      ],
     });
 
     expect(dataSource["callSubscribers"]).toBeCalled();
@@ -232,30 +226,30 @@ describe("postOrPut", () => {
 
     dataSource.postOrPut({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
-        },
-      },
+      ],
     });
 
     expect(dataSource.post).toBeCalledWith({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
-        },
-      },
+      ],
     });
     expect(dataSource.put).not.toBeCalled();
   });
@@ -265,16 +259,16 @@ describe("postOrPut", () => {
     dataSource["requestRows"] = [
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ];
     dataSource.post = jest.fn();
@@ -282,49 +276,43 @@ describe("postOrPut", () => {
 
     dataSource.postOrPut({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      responseMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
+        {
+          type: "response",
+          data: { id: 1 },
+          timestamp: 0,
         },
-      },
-      response: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
-        },
-        responseMessage: {
-          id: 1,
-        },
-      },
+      ],
     });
 
     expect(dataSource.post).not.toBeCalled();
     expect(dataSource.put).toBeCalledWith({
       id: "1",
-      type: "unary",
-      request: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
+      methodName: "getAll",
+      serviceName: "user.userService",
+      requestMetadata: {},
+      responseMetadata: {},
+      messages: [
+        {
+          type: "request",
+          data: { name: "john" },
+          timestamp: 0,
         },
-        requestMessage: {
-          name: "john",
+        {
+          type: "response",
+          data: { id: 1 },
+          timestamp: 0,
         },
-      },
-      response: {
-        metadata: {},
-        methodDescriptor: {
-          name: "/users",
-        },
-        responseMessage: {
-          id: 1,
-        },
-      },
+      ],
     });
   });
 });
@@ -335,16 +323,16 @@ describe("deleteAll", () => {
     const requestRows = <any>[
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ];
     dataSource["requestRows"] = requestRows;
@@ -354,16 +342,16 @@ describe("deleteAll", () => {
     expect(requestRows).toEqual([
       {
         id: "1",
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: "/users",
+        methodName: "getAll",
+        serviceName: "user.userService",
+        requestMetadata: {},
+        messages: [
+          {
+            type: "request",
+            data: { name: "john" },
+            timestamp: 0,
           },
-          requestMessage: {
-            name: "john",
-          },
-        },
+        ],
       },
     ]);
     expect(dataSource["requestRows"]).toEqual([]);
