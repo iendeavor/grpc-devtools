@@ -110,7 +110,7 @@ const RequestRows = ({
         });
       } else if (e.metaKey && e.key === "ArrowDown") {
         e.preventDefault();
-        const lastIndex = requestRows.length - 1;
+        const lastIndex = filteredRequestRows.length - 1;
         virtusoRef.current?.scrollIntoView({
           index: lastIndex,
           behavior: "auto",
