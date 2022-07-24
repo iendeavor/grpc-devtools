@@ -47,8 +47,44 @@ if (__ENV__.MODE === "production") {
   }
 
   function saveRequestRows(message: any) {
+    const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
+    const allRequestRows = requestRowsRepo.getAll();
+    const oldMessages =
+      allRequestRows.find((requestRow) => requestRow.id === message.id)
+        ?.messages ?? [];
+
+    const requestRow: RequestRow = {
+      id: message.id,
+      methodName: message.methodName,
+      serviceName: message.serviceName,
+      requestMetadata: message.requestMetadata,
+      responseMetadata: message.responseMetadata,
+      errorMetadata: message.errorMetadata,
+      messages: [
+        ...oldMessages,
+        ...(message.requestMessage
+          ? [
+              {
+                type: "request" as const,
+                data: message.requestMessage,
+                timestamp: message.timestamp,
+              },
+            ]
+          : []),
+        ...(message.responseMessage
+          ? [
+              {
+                type: "response" as const,
+                data: message.responseMessage,
+                timestamp: message.timestamp,
+              },
+            ]
+          : []),
+      ],
+    };
+
     postOrPutMultipleRequestRows({
-      requestRows: [message],
+      requestRows: [requestRow],
     });
   }
 }
@@ -67,60 +103,63 @@ if (__ENV__.MODE === "development") {
     .fill(null)
     .map((_, index) => {
       index += offset;
+
+      const responseCount =
+        Math.random() > 0.5 ? 100 : Math.random() > 0.5 ? 1 : 0;
+      const hasError = Math.random() > 0.7;
+
       return {
         id: index.toString(),
-        type: "unary",
-        request: {
-          metadata: {},
-          methodDescriptor: {
-            name: `/Service/getUser${index}`,
-          },
-          requestMessage: {
-            users: Array(500)
-              .fill(null)
-              .map(() => ({
-                id: index.toString(),
-                request: "foo ".repeat(100),
-              })),
-          },
-        },
-        ...(Math.random() > 0.3
+        methodName: `chat`,
+        serviceName: `chat.chatService`,
+        requestMetadata: {},
+        ...(responseCount
           ? {
-              response: {
-                metadata: {
-                  "cache-control": "no-cache",
-                },
-                methodDescriptor: {
-                  name: `/Service/getUser${index}`,
-                },
-                responseMessage: {
-                  users: Array(500)
-                    .fill(null)
-                    .map(() => ({
-                      id: index.toString(),
-                      response: "foo ".repeat(100),
-                    })),
-                },
+              responseMetadata: {
+                "cache-control": "no-cache",
               },
             }
-          : {
-              error: {
-                metadata: {
-                  "cache-control": "no-cache",
-                  "content-length": "0",
-                  "content-type": "application/grpc-web-text+proto",
-                  "grpc-message":
-                    "rpc error: code = code = Unimplemented desc = method Hello not implemented",
-                  "grpc-status": "GRPC_STATUS_UNIMPLEMENTED",
-                },
-                methodDescriptor: {
-                  name: `/Service/getUser${index}`,
-                },
-                code: "13",
-                message:
-                  "%E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4: rpc error: code = Internal desc = %E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4: Error 1062: Duplicate entry '999b9a86-7aee-4d51-83de-02894d38092d-a47faecf-cd66-42c2-829b-cf2' for key 'lady_followers.lady_object_id'",
+          : {}),
+        messages: [
+          {
+            type: "request" as const,
+            data: {
+              users: Array(1)
+                .fill(null)
+                .map(() => ({
+                  id: index.toString(),
+                  request: "foo ".repeat(10),
+                })),
+            },
+            timestamp: Date.now(),
+          },
+          ...Array(responseCount)
+            .fill(null)
+            .map((_, index) => ({
+              type: "response" as const,
+              data: {
+                users: Array(Math.floor(Math.random() * 100))
+                  .fill(null)
+                  .map(() => ({
+                    id: index.toString(),
+                    response: "foo ".repeat(100),
+                  })),
               },
-            }),
+              timestamp: Date.now(),
+            })),
+        ],
+        ...(hasError
+          ? {
+              errorMetadata: {
+                "cache-control": "no-cache",
+                "content-length": "0",
+                "content-type": "application/grpc-web-text+proto",
+                "grpc-message":
+                  "rpc error: code = code = Unimplemented desc = method Hello not implemented",
+                "grpc-status": "GRPC_STATUS_UNIMPLEMENTED",
+              },
+            }
+          : {}),
       };
     });
 

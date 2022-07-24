@@ -1,26 +1,20 @@
 export type RequestRow = {
   id: string;
-  type: "unary";
-  request: {
-    metadata: Record<string, string>;
-    methodDescriptor: {
-      name: string;
-    };
-    requestMessage: Record<string, unknown>;
-  };
-  response?: {
-    metadata: Record<string, string>;
-    methodDescriptor: {
-      name: string;
-    };
-    responseMessage: Record<string, unknown>;
-  };
-  error?: {
-    metadata: Record<string, string>;
-    methodDescriptor: {
-      name: string;
-    };
-    code: string;
-    message: string;
-  };
+  methodName: string;
+  serviceName: string;
+  requestMetadata: Record<string, string>;
+  responseMetadata?: Record<string, string>;
+  errorMetadata?: Record<string, string>;
+  messages: (
+    | {
+        type: "request";
+        data: Record<string, unknown>;
+        timestamp: number;
+      }
+    | {
+        type: "response";
+        data: Record<string, unknown>;
+        timestamp: number;
+      }
+  )[];
 };

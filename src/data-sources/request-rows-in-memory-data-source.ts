@@ -36,7 +36,10 @@ export class RequestRowsInMemoryDataSource {
   put = (requestRow: RequestRow): void => {
     const index = this.requestRows.findIndex(({ id }) => id === requestRow.id);
     this.requestRows = [...this.requestRows];
-    this.requestRows[index] = requestRow;
+    (Object.keys(requestRow) as (keyof typeof requestRow)[]).forEach((key) => {
+      if (requestRow[key] === undefined) return;
+      (this.requestRows[index] as any)[key] = requestRow[key];
+    });
     this.callSubscribers();
   };
 

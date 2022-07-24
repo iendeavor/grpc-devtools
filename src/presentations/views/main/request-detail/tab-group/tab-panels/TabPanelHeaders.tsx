@@ -1,31 +1,30 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Tab } from "@headlessui/react";
 import useRequestRow from "@/presentations/composables/use-request-row";
 import Collapse from "./tab-panel-headers/Collapse";
 import HorizontalDivider from "@/presentations/components/HorizontalDivider";
+import { useInterval } from "react-use";
 
 const TabPanelRequest = ({ isFocusIn }: { isFocusIn: boolean }) => {
   const requestRow = useRequestRow();
 
+  // FIXME: requestRow didn't trigger re-render, force trigger re-render now.
+  const [count, setCount] = useState(0);
+  useInterval(() => {
+    setCount((count + 1) % 1000);
+  }, 100);
+
   const headers = useMemo(() => {
     return {
       general: {
-        "Service Name":
-          requestRow?.request.methodDescriptor.name
-            .split("/")
-            .slice(1, -1)
-            .join("/") ?? "",
-        "Method Name":
-          requestRow?.request.methodDescriptor.name.split("/").pop() ?? "",
+        "Service Name": requestRow?.serviceName ?? "",
+        "Method Name": requestRow?.methodName ?? "",
       },
-      responseMetadata: requestRow?.response
-        ? requestRow.response.metadata
-        : requestRow?.error
-        ? requestRow.error.metadata
-        : {},
-      requestMetadata: requestRow?.request ? requestRow.request.metadata : {},
+      responseMetadata:
+        requestRow?.responseMetadata ?? requestRow?.errorMetadata ?? {},
+      requestMetadata: requestRow?.requestMetadata ?? {},
     };
-  }, [requestRow]);
+  }, [requestRow, count]);
 
   return (
     <Tab.Panel className="mt-0.5">

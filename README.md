@@ -14,7 +14,8 @@ const gRPCDevtoolsUnaryInterceptor =
 const unaryInterceptors = gRPCDevtoolsUnaryInterceptor
   ? [gRPCDevtoolsUnaryInterceptor]
   : [];
-const promiseClient = new MyServicePromiseClient(hostname, credentials, {
+
+const client = new ChatServicePromiseClient(hostname, credentials, {
   unaryInterceptors: unaryInterceptors,
 });
 ```
