@@ -42,9 +42,22 @@ export class RequestRowsRepo {
   }: {
     requestRows: RequestRow[];
   }): void => {
-    requestRows.forEach((requestRow) =>
-      this.requestRowsInMemoryDataSource.postOrPut(requestRow)
-    );
+    requestRows
+      .filter((requestRow) => {
+        const isNewRequest = !!requestRow.methodName;
+        if (isNewRequest) return true;
+
+        const cachedRequestRow = this.requestRowsInMemoryDataSource.get({
+          id: requestRow.id,
+        });
+        const isRequestStillExists = !!cachedRequestRow;
+        if (isRequestStillExists) return true;
+
+        return false;
+      })
+      .forEach((requestRow) =>
+        this.requestRowsInMemoryDataSource.postOrPut(requestRow)
+      );
 
     this.persist();
   };
