@@ -5,7 +5,7 @@ function forwardMessage() {
   let isReady = false;
   let payloadBuffer = [];
 
-  const port = chrome.runtime.connect({ name: "content-script" });
+  let port = chrome.runtime.connect({ name: "content-script" });
   port.onMessage.addListener(handlePortMessage);
   window.addEventListener("message", handleMessageEvent);
   port.onDisconnect.addListener(() => {
@@ -36,7 +36,7 @@ function forwardMessage() {
   }
   function flushIfReady() {
     if (isReady) {
-      payloadBuffer.forEach((payload) => port.postMessage(payload));
+      payloadBuffer.forEach((payload) => port?.postMessage(payload));
       payloadBuffer = [];
     }
   }
