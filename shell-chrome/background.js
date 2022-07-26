@@ -12,42 +12,42 @@ chrome.runtime.onConnect.addListener((port) => {
   ports[tab][name] = port;
 
   if (isPanel) {
-    console.log("panel");
+    console.debug("panel");
     let panel = ports[tab].panel;
     panel.onMessage.addListener(handleMessage);
     panel.onDisconnect.addListener(() => {
-      console.debug("disconnected", panel);
+      console.debug("[panel] disconnected", panel);
       panel.onMessage.removeListener(handleMessage);
       panel = null;
       ports = { ...ports };
       ports[tab] = { ...ports[tab] };
       delete ports[tab].panel;
       if (Object.keys(ports[tab]).length === 0) delete ports[tab];
-      console.debug(ports);
+      console.debug("[panel]", ports);
     });
     function handleMessage(message) {
-      console.debug("handleMessage", message);
+      console.debug("[panel] handleMessage", message);
       const contentScript = ports[tab]["content-script"];
       if (contentScript) {
         contentScript.postMessage(message);
       }
     }
   } else {
-    console.log("content-script");
+    console.debug("content-script");
     let contentScript = ports[tab]["content-script"];
     contentScript.onMessage.addListener(handleMessage);
     contentScript.onDisconnect.addListener(() => {
-      console.debug("disconnected", contentScript);
+      console.debug("[content-script] disconnected", contentScript);
       contentScript.onMessage.removeListener(handleMessage);
       contentScript = null;
       ports = { ...ports };
       ports[tab] = { ...ports[tab] };
       delete ports[tab]["content-script"];
       if (Object.keys(ports[tab]).length === 0) delete ports[tab];
-      console.debug(ports);
+      console.debug("[content-script]", ports);
     });
     function handleMessage(message) {
-      console.debug("handleMessage", message);
+      console.debug("[content-script] handleMessage", message);
       const panel = ports[tab].panel;
       if (panel) {
         panel.postMessage(message);
