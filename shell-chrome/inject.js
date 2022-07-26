@@ -147,6 +147,9 @@ class InterceptedStream {
 
     return this;
   };
+  removeListener(eventType, callback) {
+    // noop
+  }
   cancel = () => {
     this.stream.cancel();
     return this;
