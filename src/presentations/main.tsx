@@ -13,79 +13,84 @@ requestRowsRepo.hydrate();
 const configRepo = resolve(Tokens.ConfigRepo);
 
 if (__ENV__.MODE === "production") {
-  chrome.devtools.network.onNavigated.addListener(() => {
-    if (configRepo.get().shouldPreserveLog) {
-      requestRowsRepo.hydrate();
-    } else {
-      requestRowsRepo.deleteAll();
-    }
-  });
+  initDevtools();
 
-  let port: null | chrome.runtime.Port = chrome.runtime.connect({
-    name: chrome.devtools.inspectedWindow.tabId.toString(),
-  });
-
-  port.onMessage.addListener(handleMessage);
-
-  port.onDisconnect.addListener(() => {
-    port?.onMessage.removeListener(handleMessage);
-    port = null;
-  });
-
-  port.postMessage("ready");
-
-  function handleMessage(message: any) {
-    if (message === "ready") {
-      handshake();
-    } else {
-      saveRequestRows(message);
-    }
-  }
-
-  function handshake() {
-    port?.postMessage("ready");
-  }
-
-  function saveRequestRows(message: any) {
-    const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
-    const allRequestRows = requestRowsRepo.getAll();
-    const oldMessages =
-      allRequestRows.find((requestRow) => requestRow.id === message.id)
-        ?.messages ?? [];
-
-    const requestRow: RequestRow = {
-      id: message.id,
-      methodName: message.methodName,
-      serviceName: message.serviceName,
-      requestMetadata: message.requestMetadata,
-      responseMetadata: message.responseMetadata,
-      errorMetadata: message.errorMetadata,
-      messages: [
-        ...oldMessages,
-        ...(message.requestMessage
-          ? [
-              {
-                type: "request" as const,
-                data: message.requestMessage,
-                timestamp: message.timestamp,
-              },
-            ]
-          : []),
-        ...(message.responseMessage
-          ? [
-              {
-                type: "response" as const,
-                data: message.responseMessage,
-                timestamp: message.timestamp,
-              },
-            ]
-          : []),
-      ],
-    };
-
-    postOrPutMultipleRequestRows({
-      requestRows: [requestRow],
+  function initDevtools() {
+    chrome.devtools.network.onNavigated.addListener(() => {
+      if (configRepo.get().shouldPreserveLog) {
+        requestRowsRepo.hydrate();
+      } else {
+        requestRowsRepo.deleteAll();
+      }
     });
+
+    let port: null | chrome.runtime.Port = chrome.runtime.connect({
+      name: chrome.devtools.inspectedWindow.tabId.toString(),
+    });
+
+    port.onMessage.addListener(handleMessage);
+
+    port.onDisconnect.addListener(() => {
+      port?.onMessage.removeListener(handleMessage);
+      port = null;
+      initDevtools();
+    });
+
+    port.postMessage("ready");
+
+    function handleMessage(message: any) {
+      if (message === "ready") {
+        handshake();
+      } else {
+        saveRequestRows(message);
+      }
+    }
+
+    function handshake() {
+      port?.postMessage("ready");
+    }
+
+    function saveRequestRows(message: any) {
+      const requestRowsRepo = resolve(Tokens.RequestRowsRepo);
+      const allRequestRows = requestRowsRepo.getAll();
+      const oldMessages =
+        allRequestRows.find((requestRow) => requestRow.id === message.id)
+          ?.messages ?? [];
+
+      const requestRow: RequestRow = {
+        id: message.id,
+        methodName: message.methodName,
+        serviceName: message.serviceName,
+        requestMetadata: message.requestMetadata,
+        responseMetadata: message.responseMetadata,
+        errorMetadata: message.errorMetadata,
+        messages: [
+          ...oldMessages,
+          ...(message.requestMessage
+            ? [
+                {
+                  type: "request" as const,
+                  data: message.requestMessage,
+                  timestamp: message.timestamp,
+                },
+              ]
+            : []),
+          ...(message.responseMessage
+            ? [
+                {
+                  type: "response" as const,
+                  data: message.responseMessage,
+                  timestamp: message.timestamp,
+                },
+              ]
+            : []),
+        ],
+      };
+
+      postOrPutMultipleRequestRows({
+        requestRows: [requestRow],
+      });
+    }
   }
 }
 
