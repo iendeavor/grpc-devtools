@@ -69,9 +69,8 @@ class gRPCDevtoolsUnaryInterceptor {
 }
 
 class InterceptedStream {
-  constructor({ id, request, stream }) {
+  constructor({ id, stream }) {
     this.id = id;
-    this.request = request;
     this.stream = stream;
   }
 
