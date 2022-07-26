@@ -1,6 +1,6 @@
 {
   "name": "gRPC devtools",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Browser DevTools extension for debugging gRPC network requests.",
   "manifest_version": 3,
   "icons": {
