@@ -152,7 +152,6 @@ class InterceptedStream {
   }
   cancel = () => {
     this.stream.cancel();
-    return this;
   };
 }
 
