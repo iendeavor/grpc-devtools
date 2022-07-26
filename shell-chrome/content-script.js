@@ -29,7 +29,7 @@ function forwardMessage() {
     flushIfReady();
   }
   function handleMessageEvent(event) {
-    if (event.data.source && event.data.source === "__gRPC_devtools__") {
+    if (event.data && event.data.source === "__gRPC_devtools__") {
       payloadBuffer = payloadBuffer.concat(event.data.payload);
       flushIfReady();
     }
