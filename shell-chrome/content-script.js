@@ -4,17 +4,26 @@ injectScript();
 function forwardMessage() {
   let isReady = false;
   let payloadBuffer = [];
+  let port = null;
 
-  let port = chrome.runtime.connect({ name: "content-script" });
-  port.onMessage.addListener(handlePortMessage);
-  window.addEventListener("message", handleMessageEvent);
-  port.onDisconnect.addListener(() => {
-    window.removeEventListener("message", handleMessageEvent);
-    port?.onMessage.removeListener(handlePortMessage);
-    port = null;
-  });
+  connect();
 
-  port.postMessage("ready");
+  function connect() {
+    port = chrome.runtime.connect({ name: "content-script" });
+    port.onMessage.addListener(handlePortMessage);
+    window.addEventListener("message", handleMessageEvent);
+    port.onDisconnect.addListener(() => {
+      isReady = false;
+
+      window.removeEventListener("message", handleMessageEvent);
+      port?.onMessage.removeListener(handlePortMessage);
+      port = null;
+
+      connect();
+    });
+
+    port.postMessage("ready");
+  }
 
   function handlePortMessage(message) {
     if (message === "ready") {

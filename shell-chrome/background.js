@@ -53,6 +53,12 @@ chrome.runtime.onConnect.addListener((port) => {
         panel.postMessage(message);
       }
     }
+    // force reconnect
+    setTimeout(() => {
+      if (ports[tab]["content-script"] === port) {
+        port.disconnect();
+      }
+    }, 60 * 1000);
   }
 
   console.debug("ports", ports);
