@@ -53,7 +53,16 @@ class gRPCDevtoolsUnaryInterceptor {
         return response;
       })
       .catch((error) => {
-        postMessageToContentScript({ id, errorMetadata: error.metadata });
+        postMessageToContentScript({
+          id,
+          responseMessage: {
+            name: error.name,
+            code: error.code,
+            message: error.message,
+            stack: error.stack,
+          },
+          errorMetadata: error.metadata,
+        });
         throw error;
       });
   };
