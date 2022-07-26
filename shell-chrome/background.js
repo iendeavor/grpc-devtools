@@ -37,6 +37,7 @@ chrome.runtime.onConnect.addListener((port) => {
     let contentScript = ports[tab]["content-script"];
     contentScript.onMessage.addListener(handleMessage);
     contentScript.onDisconnect.addListener(() => {
+      clearTimeout(timerId);
       console.debug("[content-script] disconnected", contentScript);
       contentScript.onMessage.removeListener(handleMessage);
       contentScript = null;
@@ -54,11 +55,11 @@ chrome.runtime.onConnect.addListener((port) => {
       }
     }
     // force reconnect
-    setTimeout(() => {
+    const timerId = setTimeout(() => {
       if (ports[tab] && ports[tab]["content-script"] === port) {
         port.disconnect();
       }
-    }, 60 * 1000);
+    }, 5 * 1000);
   }
 
   console.debug("ports", ports);
