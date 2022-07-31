@@ -34,7 +34,7 @@ const IconFilter = () => {
           (isFiltering
             ? " text-[#d93025] dark:text-[#f18b82]"
             : config.shouldShowFilterBar
-            ? " text-[#8ab4f7]"
+            ? " text-[#1b73e8]"
             : isHovering
             ? " text-[#202124] dark:text-[#e8eaed]"
             : " text-[#6e6e6e] dark:text-[#919191]")
