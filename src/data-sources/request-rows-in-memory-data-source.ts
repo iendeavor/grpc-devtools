@@ -38,6 +38,7 @@ export class RequestRowsInMemoryDataSource {
     this.requestRows = [...this.requestRows];
     (Object.keys(requestRow) as (keyof typeof requestRow)[]).forEach((key) => {
       if (requestRow[key] === undefined) return;
+      (this.requestRows[index] as any) = { ...this.requestRows[index] };
       (this.requestRows[index] as any)[key] = requestRow[key];
     });
     this.callSubscribers();
