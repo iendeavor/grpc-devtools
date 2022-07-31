@@ -29,15 +29,15 @@ const Input = () => {
   return (
     <div
       className={
-        "flex items-center w-32 border bg-background transition-colors pl-1" +
+        "flex items-center w-32 border bg-[#ffffff] dark:bg-[#202124] transition-colors pl-1" +
         (isFiltering || hasFocus
-          ? " border-[#10629d]"
-          : " border-[transparent] hover:border-text-secondary/50")
+          ? " border-[#1b73e8] dark:border-[#10629d]"
+          : " border-[transparent] hover:border-[#e0e0e0] dark:hover:border-[#5a5a5a]")
       }
     >
       <input
         ref={inputRef}
-        className="w-full text-[#bbc3cc] placeholder:text-[#9aa0a6] bg-background py-[1px]"
+        className="w-full text-[#303942] dark:text-[#bbc3cc] placeholder:text-[#5f6367] dark:placeholder:text-[#9aa0a6] bg-[#ffffff] dark:bg-[#202124] py-[1px]"
         placeholder={"Filter"}
         value={filter.text}
         onChange={(e) => handleChange(e.target.value)}

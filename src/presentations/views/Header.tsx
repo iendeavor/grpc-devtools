@@ -23,7 +23,10 @@ const Header = ({
   }, [filter]);
 
   return (
-    <header ref={headerRef} className="flex flex-col bg-background-elevation-1">
+    <header
+      ref={headerRef}
+      className="flex flex-col bg-[#f1f3f4] dark:bg-[#292a2d]"
+    >
       <Toolbar></Toolbar>
       <HorizontalDivider></HorizontalDivider>
       {config.shouldShowFilterBar && (

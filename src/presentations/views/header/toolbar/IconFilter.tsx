@@ -23,7 +23,7 @@ const IconFilter = () => {
 
   return (
     <button
-      className="flex items-center h-[26px] px-1 -ml-1 cursor-default focus-visible:bg-[#35363a]"
+      className="flex items-center h-[26px] px-1 -ml-1 cursor-default focus-visible:bg-[#dfe1e5] dark:focus-visible:bg-[#35363a]"
       onClick={() => setShouldShowFilterBar(!config.shouldShowFilterBar)}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -32,12 +32,12 @@ const IconFilter = () => {
         className={
           "flex justify-center items-center w-[13px] h-[13px] m-[2px] material-symbols-rounded font-bold scale-[0.7] transition-colors" +
           (isFiltering
-            ? " text-[#f18b82]"
+            ? " text-[#d93025] dark:text-[#f18b82]"
             : config.shouldShowFilterBar
             ? " text-[#8ab4f7]"
             : isHovering
-            ? " text-[#e8eaed]"
-            : " text-[#919191]")
+            ? " text-[#202124] dark:text-[#e8eaed]"
+            : " text-[#6e6e6e] dark:text-[#919191]")
         }
       >
         filter_alt

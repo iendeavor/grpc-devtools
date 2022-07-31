@@ -35,7 +35,7 @@ const Main = ({ headerHeight }: { headerHeight: number }) => {
   const isDetailVisible = useMemo(() => detail.requestId !== null, [detail]);
 
   return (
-    <main className="flex flex-col bg-[#202124] overflow-y-auto">
+    <main className="flex flex-col bg-[#ffffff] dark:bg-[#202124] overflow-y-auto">
       <div className="flex flex-row">
         <RequestRows
           headerHeight={headerHeight}

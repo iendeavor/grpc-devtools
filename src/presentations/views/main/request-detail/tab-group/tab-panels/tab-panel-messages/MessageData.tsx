@@ -12,7 +12,7 @@ const MessageData = ({ data }: { data: Record<string, unknown> }) => {
     <div className="h-full flex overflow-hidden">
       <div
         ref={ref}
-        className="min-w-[28px] flex flex-col border-r border-[#4a4c50]"
+        className="min-w-[28px] flex flex-col border-r border-[#cbcdd1] dark:border-[#4a4c50]  text-[#757575] dark:text-[#8a8a8a]"
       >
         {JSON.stringify(data, null, 2)
           .split("\n")

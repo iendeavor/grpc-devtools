@@ -49,22 +49,22 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
         <div
           key={message.timestamp + "-" + index}
           className={
-            "flex items-center cursor-default border-b border-[#4a4c50]" +
+            "flex items-center cursor-default border-b border-[#cbcdd1] dark:border-[#4a4c50]" +
             (isFocusIn && highlightIndex === index
-              ? " bg-[#0f639c]"
+              ? " bg-[#1d73e8] dark:bg-[#0f639c]"
               : highlightIndex === index
-              ? " bg-[#454545]"
-              : " bg-[#102508]")
+              ? " bg-[#dadcd0] dark:bg-[#454545]"
+              : " bg-[#e2f7da] dark:bg-[#102508]")
           }
           onClick={() => setHighlightIndex(index)}
         >
-          <div className="flex flex-1 items-center overflow-hidden border-r border-[#4a4c50]">
+          <div className="flex flex-1 items-center overflow-hidden border-r border-[#cbcdd1] dark:border-[#4a4c50]">
             <span
               className={
                 "material-symbols-rounded text-sm font-bold mx-1" +
                 (isFocusIn && highlightIndex === index
-                  ? " text-[#000000]"
-                  : " text-[#63acbe]")
+                  ? " text-[#ffffff] dark:text-[#000000]"
+                  : " text-[#63acbe] dark:text-[#63acbe]")
               }
             >
               arrow_upward
@@ -73,8 +73,8 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
               className={
                 "whitespace-nowrap overflow-hidden text-ellipsis" +
                 (isFocusIn && highlightIndex === index
-                  ? " text-[#ffffff]"
-                  : " text-[#bec6cf]")
+                  ? " text-[#ffffff] dark:text-[#ffffff]"
+                  : " text-[#303942] dark:text-[#bec6cf]")
               }
             >
               {JSON.stringify(message.data)}
@@ -84,8 +84,8 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
             className={
               "px-1 w-24 font-mono" +
               (isFocusIn && highlightIndex === index
-                ? " text-[#ffffff]"
-                : " text-[#bec6cf]")
+                ? " text-[#ffffff] dark:text-[#ffffff]"
+                : " text-[#303942] dark:text-[#bec6cf]")
             }
           >
             {getTime(message.timestamp)}
@@ -97,22 +97,22 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
         <div
           key={message.timestamp + "-" + index}
           className={
-            "flex items-center cursor-default border-b border-[#4a4c50]" +
+            "flex items-center cursor-default border-b border-[#cbcdd1] dark:border-[#4a4c50]" +
             (isFocusIn && highlightIndex === index
-              ? " bg-[#0f639c]"
+              ? " bg-[#1d73e8] dark:bg-[#0f639c]"
               : highlightIndex === index
-              ? " bg-[#454545]"
-              : " bg-[#202124]")
+              ? " bg-[#dadcd0] dark:bg-[#454545]"
+              : " bg-[#ffffff] dark:bg-[#202124]")
           }
           onClick={() => setHighlightIndex(index)}
         >
-          <div className="flex flex-1 items-center overflow-hidden border-r border-[#4a4c50]">
+          <div className="flex flex-1 items-center overflow-hidden border-r border-[#cbcdd1] dark:border-[#4a4c50]">
             <span
               className={
                 "material-symbols-rounded text-sm font-bold mx-1 rotate-180" +
                 (isFocusIn && highlightIndex === index
-                  ? " text-[#000000]"
-                  : " text-[#ed4f4c]")
+                  ? " text-[#ffffff] dark:text-[#000000]"
+                  : " text-[#ef432f] dark:text-[#ed4f4c]")
               }
             >
               arrow_upward
@@ -121,8 +121,8 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
               className={
                 "whitespace-nowrap overflow-hidden text-ellipsis" +
                 (isFocusIn && highlightIndex === index
-                  ? " text-[#ffffff]"
-                  : " text-[#bec6cf]")
+                  ? " text-[#ffffff] dark:text-[#ffffff]"
+                  : " text-[#303942] dark:text-[#bec6cf]")
               }
             >
               {JSON.stringify(message.data)}
@@ -132,8 +132,8 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
             className={
               "px-1 w-24 font-mono" +
               (isFocusIn && highlightIndex === index
-                ? " text-[#ffffff]"
-                : " text-[#bec6cf]")
+                ? " text-[#ffffff] dark:text-[#ffffff]"
+                : " text-[#303942] dark:text-[#bec6cf]")
             }
           >
             {getTime(message.timestamp)}
@@ -144,18 +144,18 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
   };
 
   return (
-    <Tab.Panel className="flex flex-col h-full">
+    <Tab.Panel className="flex flex-col h-full mt-[1px]">
       <div
         className={
-          "flex items-center cursor-default text-[#bec6cf] bg-[#292a2b] border-b border-[#4a4c50]"
+          "flex items-center cursor-default text-[#303942] dark:text-[#bec6cf] bg-[#f1f3f4] dark:bg-[#292a2b] border-b border-[#cbcdd1] dark:border-[#4a4c50]"
         }
       >
-        <div className="flex flex-1 items-center py-0.5 px-1 border-r border-[#4a4c50]">
+        <div className="flex flex-1 items-center py-0.5 px-1 border-r border-[#cbcdd1] dark:border-[#4a4c50]">
           Data
         </div>
         <div className={"py-0.5 px-1 w-24"}>Time</div>
       </div>
-      <div className="overflow-y-auto border border-[#4a4c50]">
+      <div className="overflow-y-auto border border-[#cbcdd1] dark:border-[#4a4c50]">
         {requestRow ? (
           <VirtualList
             data={requestRow.messages}
@@ -170,7 +170,7 @@ const TabPanelMessages = ({ isFocusIn }: { isFocusIn: boolean }) => {
       </div>
       <div className="flex-1"></div>
       {currentData && (
-        <div className="h-[50vh] border border-[#4a4c50] bg-[#202124]">
+        <div className="h-[50vh] border border-[#cbcdd1] dark:border-[#4a4c50] bg-[#ffffff] dark:bg-[#202124]">
           <div className="h-full overflow-y-auto">
             <MessageData data={currentData}></MessageData>
           </div>

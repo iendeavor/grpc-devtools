@@ -64,13 +64,15 @@ const Collapse = ({
         <div
           className={
             "flex items-center select-none" +
-            (detail.headers.focusIndex === offsetIndex
-              ? " text-[#cdcdcd]"
-              : " text-[#e8eaed]") +
             (isFocusIn && detail.headers.focusIndex === offsetIndex
-              ? " bg-[#10629d]"
+              ? " text-[#ffffff] dark:text-[#cdcdcd]"
               : detail.headers.focusIndex === offsetIndex
-              ? " bg-[#474747]"
+              ? " text-[#5f6367] dark:text-[#e8eaed]"
+              : " text-[#202124] dark:text-[#e8eaed]") +
+            (isFocusIn && detail.headers.focusIndex === offsetIndex
+              ? " bg-[#1b73e8] dark:bg-[#10629d]"
+              : detail.headers.focusIndex === offsetIndex
+              ? " bg-[#dadada] dark:bg-[#474747]"
               : "")
           }
           tabIndex={1}
@@ -80,8 +82,8 @@ const Collapse = ({
             className={
               "material-symbols-outlined" +
               (isFocusIn && detail.headers.focusIndex === offsetIndex
-                ? " text-[#cdcdcd]"
-                : " text-[#9aa0a6]")
+                ? " text-[#ffffff] dark:text-[#cdcdcd]"
+                : " text-[#5f6367] dark:text-[#9aa0a6]")
             }
             onClick={() => setIsExpanding(!isExpanding)}
           >
@@ -103,9 +105,9 @@ const Collapse = ({
                   "pl-[30px] leading-[2]" +
                   (isFocusIn &&
                   detail.headers.focusIndex === getLineOffsetIndex(index)
-                    ? " bg-[#10629d]"
+                    ? " bg-[#1b73e8] dark:bg-[#10629d]"
                     : detail.headers.focusIndex === getLineOffsetIndex(index)
-                    ? " bg-[#474747]"
+                    ? " bg-[#dadada] dark:bg-[#474747]"
                     : "")
                 }
                 tabIndex={1}
@@ -115,12 +117,21 @@ const Collapse = ({
                   className={
                     isFocusIn &&
                     detail.headers.focusIndex === getLineOffsetIndex(index)
-                      ? " text-[#cdcdcd]"
-                      : " text-[#9aa0a6]"
+                      ? " text-[#ffffff] dark:text-[#cdcdcd]"
+                      : " text-[#5f6367] dark:text-[#9aa0a6]"
                   }
                 >
                   <span className="font-bold">{line[0]}:&nbsp;&nbsp;</span>
-                  <span className="text-[#cdcdcd]">{line[1]}</span>
+                  <span
+                    className={
+                      isFocusIn &&
+                      detail.headers.focusIndex === getLineOffsetIndex(index)
+                        ? "text-[#ffffff] dark:text-[#cdcdcd]"
+                        : "text-[#303942] dark:text-[#cdcdcd]"
+                    }
+                  >
+                    {line[1]}
+                  </span>
                 </div>
               </div>
             );

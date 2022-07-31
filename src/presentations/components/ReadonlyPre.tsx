@@ -29,7 +29,7 @@ const ReadonlyPre = ({
 
   return (
     <pre
-      className={className}
+      className={"text-[#303942] dark:text-[#bec6cf] " + className}
       ref={ref}
       contentEditable
       onCut={noop}

@@ -6,7 +6,11 @@ const VerticalDivider = ({
   className?: React.HTMLAttributes<HTMLDivElement>["className"];
 } = {}) => {
   return (
-    <div className={"w-[1px] bg-[#4a4c50] leading-5 " + (className ?? "")}>
+    <div
+      className={
+        "w-[1px] bg-[#cbcdd1] dark:bg-[#4a4c50] leading-5 " + (className ?? "")
+      }
+    >
       &nbsp;
     </div>
   );

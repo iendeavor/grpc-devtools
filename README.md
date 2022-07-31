@@ -45,4 +45,3 @@ declare const __gRPC_devtools__:
 ## TODOs
 
 - Search
-- Light mode

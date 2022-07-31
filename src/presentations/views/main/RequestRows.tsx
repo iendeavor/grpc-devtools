@@ -9,6 +9,7 @@ import { getClassName as _getClassName } from "./request-rows/get-class-name";
 import useIsFocusIn from "@/presentations/composables/use-is-focus-in";
 import useDetail from "@/presentations/composables/use-detail";
 import VirtualList from "@/presentations/components/VirtualList";
+import useConfig from "@/presentations/composables/use-config";
 
 const RequestRows = ({
   className,
@@ -18,6 +19,8 @@ const RequestRows = ({
   headerHeight: number;
 }) => {
   const filterRepo = resolve(Tokens.FilterRepo);
+
+  const [config] = useConfig();
 
   const [requestRows] = useRequestRows();
 
@@ -74,7 +77,7 @@ const RequestRows = ({
       "flex",
       "flex-row",
       "select-none",
-      !isActive && "hover:bg-[#192438]",
+      !isActive && "hover:bg-[#f1f6fd] dark:hover:bg-[#192438]",
       ..._getClassName({
         isWindowFocus: isFocus,
         isActive,
@@ -124,7 +127,10 @@ const RequestRows = ({
   return (
     <div
       ref={wrapperRef}
-      className={"flex flex-col h-full border border-[#4a4c50] " + className}
+      className={
+        "flex flex-col h-full border border-[#cbcdd1] dark:border-[#4a4c50] " +
+        className
+      }
     >
       {requestRows.length ? (
         <VirtualList
@@ -135,8 +141,11 @@ const RequestRows = ({
           onDone={handleDone}
         />
       ) : (
-        <div className="absolute flex justify-center items-center w-full h-full">
-          Recording gRPC activity...
+        <div className="absolute flex flex-col justify-center items-center w-full h-full text-[#5f6367] dark:text-[#9aa0a6]">
+          <div className="mb-2">
+            {config.shouldRecord ? "Recording gRPC activity..." : ""}
+          </div>
+          <div>Record network log to display gRPC activity.</div>
         </div>
       )}
     </div>
